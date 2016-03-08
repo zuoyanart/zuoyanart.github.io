@@ -1,0 +1,779 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="css,前端," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="左盐" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="web中文字体的选择web应用程序因其跨平台性被广泛应用，但是也为web应用程序运行带来了复杂的运行环境，比如各个系统字体的区别以及中英文字体显示的区别。
+字体分类网页常用字体通常分为5类：serif(衬线)、sans-serif(无衬线)、monospace(等宽)、fantasy(梦幻)、cuisive(草体)，这些通用的名称允许用户代理从相应集合中选择一款字体。
+
+serif 字体在字符笔画">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网页中font-family的属性解析">
+<meta property="og:url" content="http://zuoyanart.github.io/2016/01/01/font-family解析/index.html">
+<meta property="og:site_name" content="左盐">
+<meta property="og:description" content="web中文字体的选择web应用程序因其跨平台性被广泛应用，但是也为web应用程序运行带来了复杂的运行环境，比如各个系统字体的区别以及中英文字体显示的区别。
+字体分类网页常用字体通常分为5类：serif(衬线)、sans-serif(无衬线)、monospace(等宽)、fantasy(梦幻)、cuisive(草体)，这些通用的名称允许用户代理从相应集合中选择一款字体。
+
+serif 字体在字符笔画">
+<meta property="og:updated_time" content="2016-01-06T04:29:58.767Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网页中font-family的属性解析">
+<meta name="twitter:description" content="web中文字体的选择web应用程序因其跨平台性被广泛应用，但是也为web应用程序运行带来了复杂的运行环境，比如各个系统字体的区别以及中英文字体显示的区别。
+字体分类网页常用字体通常分为5类：serif(衬线)、sans-serif(无衬线)、monospace(等宽)、fantasy(梦幻)、cuisive(草体)，这些通用的名称允许用户代理从相应集合中选择一款字体。
+
+serif 字体在字符笔画">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> 网页中font-family的属性解析 | 左盐 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c529f53e7be852183aa3b4004696ce38";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">左盐</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-pizzaui">
+          <a href="http://ui.zuoyan.space" rel="section">
+            
+              <i class="menu-item-icon fa fa-question-circle fa-fw"></i> <br />
+            
+            menu.pizzaui
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                网页中font-family的属性解析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-01-01T22:38:43+08:00" content="2016-01-01">
+              2016-01-01
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/01/01/font-family解析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/01/font-family解析/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h2 id="web_u4E2D_u6587_u5B57_u4F53_u7684_u9009_u62E9"><a href="#web_u4E2D_u6587_u5B57_u4F53_u7684_u9009_u62E9" class="headerlink" title="web中文字体的选择"></a>web中文字体的选择</h2><p>web应用程序因其跨平台性被广泛应用，但是也为web应用程序运行带来了复杂的运行环境，比如各个系统字体的区别以及中英文字体显示的区别。</p>
+<h4 id="u5B57_u4F53_u5206_u7C7B"><a href="#u5B57_u4F53_u5206_u7C7B" class="headerlink" title="字体分类"></a>字体分类</h4><p>网页常用字体通常分为5类：serif(衬线)、sans-serif(无衬线)、monospace(等宽)、fantasy(梦幻)、cuisive(草体)，这些通用的名称允许用户代理从相应集合中选择一款字体。</p>
+<ul>
+<li>serif 字体在字符笔画末端有叫做衬线的小细节，这些细节在大写字母中特别明显。</li>
+<li>sans-serif 字体在字符笔画末端没有任何细节，与serif字体相比，他们的外形更简单。</li>
+<li>monospace 字体，每个字母的宽度相等，通常用于计算机相关书籍中排版代码块。</li>
+<li>fantasy 和 cuisive 字体在浏览器中不常用，在各个浏览器中有明显的差异。</li>
+</ul>
+<h4 id="u7F51_u9875_u5E38_u7528_u5B57_u4F53"><a href="#u7F51_u9875_u5E38_u7528_u5B57_u4F53" class="headerlink" title="网页常用字体"></a>网页常用字体</h4><h5 id="Sans-serif_3A"><a href="#Sans-serif_3A" class="headerlink" title="Sans-serif:"></a>Sans-serif:</h5><ul>
+<li><p>Helvetica: 被评为设计师最爱的字体，Realist风格，简洁现代的线条，非常受到追捧。在Mac下面被认为是最佳的网页字体，在Windows下由于Hinting的原因显示很糟糕。</p>
+</li>
+<li><p>Arial: Helvetica的「克隆」，和Helvetica非常像，细节上比如R和G有小小差别。如果字号太小，文字太多，看起来会有些累眼。Win和Mac显示都正常</p>
+</li>
+<li><p>Lucida Family: Lucida Grande是Mac OS UI的标准字体，属于humanist风格，稍微活泼一点。Mac下的显示要比Win下好。</p>
+</li>
+<li><p>Verdana: 专门为了屏显而设计的字体，humanist风格，在小字号下仍可以清楚显示，但是字体细节缺失严重，最好别做标题。</p>
+</li>
+<li><p>Tahoma: 也是humanist风格，字体和Verdana有点像，但是略窄一些，counter略小，曾经是Windows的标准字体，Mac 10.5之后默认也有安装。</p>
+</li>
+<li><p>Trebuchet MS: 为微软设计的一个humanist风格字体，个人觉得个性太过突出，用得不好会不搭。</p>
+</li>
+</ul>
+<h5 id="Serif_uFF1A"><a href="#Serif_uFF1A" class="headerlink" title="Serif："></a>Serif：</h5><ul>
+<li><p>Georgia: 基本上适合正文屏显的衬线字体，非Georgia莫属了。笔画粗重，衬线明线，轮廓较大，小字体显示也很清晰，同时细节还算OK。</p>
+</li>
+<li><p>Times: Times是为了报纸而设计的，特点是可以在有限的空间塞进去更多的文字，笔画较弱，小字号正文屏显看起来累眼。曾经Engadget改版的时候用了Times作为正文，被骂得很惨之后换成了Georgia。</p>
+</li>
+</ul>
+<h5 id="u4E2D_u6587_uFF1A"><a href="#u4E2D_u6587_uFF1A" class="headerlink" title="中文："></a>中文：</h5><ul>
+<li><p>宋体：Win最常见的字体，小字体点阵，大字体TrueType，但是大字体并不好看，所以最好别做标题。</p>
+</li>
+<li><p>微软雅黑：Vista之后新引入的字体，打开Cleartype之后显示效果不错，不开Cleartype发虚。</p>
+</li>
+<li><p>华文细黑：Mac下的默认中文。</p>
+</li>
+</ul>
+<h2 id="font-family_u5199_u6CD5"><a href="#font-family_u5199_u6CD5" class="headerlink" title="font-family写法"></a>font-family写法</h2><ul>
+<li><p>由于某些系统可能不存在中文字体的中文名，所以写中文字体别忘了添加英文名</p>
+</li>
+<li><p>因为英文字体的渲染通常比用中文字体渲染的效果好，所以英文字体声明在中文字体前。</p>
+</li>
+<li><p>尽量在各个系统中都显示的最好</p>
+</li>
+</ul>
+<p>由此可得出font-family的写法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">font-family: Arial, STXihei, <span class="string">"华文细黑"</span>, <span class="string">"Microsoft YaHei"</span>, <span class="string">"微软雅黑"</span>,SimSun, <span class="string">"宋体"</span> ;</span><br></pre></td></tr></table></figure>
+<p>这样写基本可以保证主流系统在显示网页字体的时候效果最好，当然要注意的是：设计师在设计网页的时候也需要照顾不同的平台的字体属性</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/css/" rel="tag">#css</a>
+          
+            <a href="/tags/前端/" rel="tag">#前端</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/01/nginx配置/" rel="next" title="nginx配置以及基本命令使用">
+                <i class="fa fa-chevron-left"></i> nginx配置以及基本命令使用
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/01/07/ngxinqufenpcmobile/" rel="prev" title="Nginx配置网站适配PC和手机">
+                Nginx配置网站适配PC和手机 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/01/01/font-family解析/"
+     data-title="网页中font-family的属性解析"
+     data-content=""
+     data-url="http://zuoyanart.github.io/2016/01/01/font-family解析/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/01/01/font-family解析/"
+           data-title="网页中font-family的属性解析" data-url="http://zuoyanart.github.io/2016/01/01/font-family解析/">
+      </div>
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="左盐" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">左盐</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description"></p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/spnt" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://gitcafe.com/spnt" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> gitcafe
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#web_u4E2D_u6587_u5B57_u4F53_u7684_u9009_u62E9"><span class="nav-number">1.</span> <span class="nav-text">web中文字体的选择</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#u5B57_u4F53_u5206_u7C7B"><span class="nav-number">1.0.1.</span> <span class="nav-text">字体分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#u7F51_u9875_u5E38_u7528_u5B57_u4F53"><span class="nav-number">1.0.2.</span> <span class="nav-text">网页常用字体</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Sans-serif_3A"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">Sans-serif:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Serif_uFF1A"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">Serif：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#u4E2D_u6587_uFF1A"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">中文：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#font-family_u5199_u6CD5"><span class="nav-number">2.</span> <span class="nav-text">font-family写法</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">左盐</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"spntblog"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+
+    
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>

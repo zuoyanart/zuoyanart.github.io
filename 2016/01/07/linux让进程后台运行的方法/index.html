@@ -1,0 +1,767 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="centos,golang,linux,文摘," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="左盐" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="我们经常会碰到这样的问题，用 telnet/ssh 登录了远程的 Linux 服务器，运行了一些耗时较长的任务， 结果却由于网络的不稳定导致任务中途失败。如何让命令提交后不受本地关闭终端窗口/网络断开连接的干扰呢？下面举了一些例子， 您可以针对不同的场景选择不同的方式来处理这个问题。
+nohup/setsid/&amp;amp;场景：如果只是临时有一个命令需要长时间运行，什么方法能最简便的保证它在后台稳定">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux让进程后台运行的方法">
+<meta property="og:url" content="http://zuoyanart.github.io/2016/01/07/linux让进程后台运行的方法/index.html">
+<meta property="og:site_name" content="左盐">
+<meta property="og:description" content="我们经常会碰到这样的问题，用 telnet/ssh 登录了远程的 Linux 服务器，运行了一些耗时较长的任务， 结果却由于网络的不稳定导致任务中途失败。如何让命令提交后不受本地关闭终端窗口/网络断开连接的干扰呢？下面举了一些例子， 您可以针对不同的场景选择不同的方式来处理这个问题。
+nohup/setsid/&amp;amp;场景：如果只是临时有一个命令需要长时间运行，什么方法能最简便的保证它在后台稳定">
+<meta property="og:updated_time" content="2016-01-07T08:13:18.041Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux让进程后台运行的方法">
+<meta name="twitter:description" content="我们经常会碰到这样的问题，用 telnet/ssh 登录了远程的 Linux 服务器，运行了一些耗时较长的任务， 结果却由于网络的不稳定导致任务中途失败。如何让命令提交后不受本地关闭终端窗口/网络断开连接的干扰呢？下面举了一些例子， 您可以针对不同的场景选择不同的方式来处理这个问题。
+nohup/setsid/&amp;amp;场景：如果只是临时有一个命令需要长时间运行，什么方法能最简便的保证它在后台稳定">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> linux让进程后台运行的方法 | 左盐 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c529f53e7be852183aa3b4004696ce38";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">左盐</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-pizzaui">
+          <a href="http://ui.zuoyan.space" rel="section">
+            
+              <i class="menu-item-icon fa fa-question-circle fa-fw"></i> <br />
+            
+            menu.pizzaui
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                linux让进程后台运行的方法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-01-07T16:03:33+08:00" content="2016-01-07">
+              2016-01-07
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/01/07/linux让进程后台运行的方法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/07/linux让进程后台运行的方法/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>我们经常会碰到这样的问题，用 telnet/ssh 登录了远程的 Linux 服务器，运行了一些耗时较长的任务， 结果却由于网络的不稳定导致任务中途失败。如何让命令提交后不受本地关闭终端窗口/网络断开连接的干扰呢？下面举了一些例子， 您可以针对不同的场景选择不同的方式来处理这个问题。</p>
+<h2 id="nohup/setsid/_26amp_3B"><a href="#nohup/setsid/_26amp_3B" class="headerlink" title="nohup/setsid/&amp;"></a>nohup/setsid/&amp;</h2><h3 id="u573A_u666F_uFF1A"><a href="#u573A_u666F_uFF1A" class="headerlink" title="场景："></a>场景：</h3><p>如果只是临时有一个命令需要长时间运行，什么方法能最简便的保证它在后台稳定运行呢？<br>hangup 名称的来由<br>在 Unix 的早期版本中，每个终端都会通过 modem 和系统通讯。当用户 logout 时，modem 就会挂断（hang up）电话。 同理，当 modem 断开连接时，就会给终端发送 hangup 信号来通知其关闭所有子进程。</p>
+<h3 id="u89E3_u51B3_u65B9_u6CD5_uFF1A"><a href="#u89E3_u51B3_u65B9_u6CD5_uFF1A" class="headerlink" title="解决方法："></a>解决方法：</h3><p>我们知道，当用户注销（logout）或者网络断开时，终端会收到 HUP（hangup）信号从而关闭其所有子进程。因此，我们的解决办法就有两种途径：要么让进程忽略 HUP 信号，要么让进程运行在新的会话里从而成为不属于此终端的子进程。</p>
+<h3 id="1-_nohup"><a href="#1-_nohup" class="headerlink" title="1. nohup"></a>1. nohup</h3><p>nohup 无疑是我们首先想到的办法。顾名思义，nohup 的用途就是让提交的命令忽略 hangup 信号。让我们先来看一下 nohup 的帮助信息：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">NOHUP(<span class="number">1</span>)                        User Commands                        NOHUP(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">NAME</span><br><span class="line">       nohup - run a command immune to hangups, <span class="keyword">with</span> output to a non-tty</span><br><span class="line"></span><br><span class="line">SYNOPSIS</span><br><span class="line">       nohup COMMAND [ARG]...</span><br><span class="line">       nohup OPTION</span><br><span class="line"></span><br><span class="line">DESCRIPTION</span><br><span class="line">       Run COMMAND, ignoring hangup signals.</span><br><span class="line"></span><br><span class="line">       --help display <span class="keyword">this</span> help and exit</span><br><span class="line"></span><br><span class="line">       --version</span><br><span class="line">              output version information and exit</span><br></pre></td></tr></table></figure>
+<p>可见，nohup 的使用是十分方便的，只需在要处理的命令前加上 nohup 即可，标准输出和标准错误缺省会被重定向到 nohup.out 文件中。一般我们可在结尾加上”&amp;”来将命令同时放入后台运行，也可用”&gt;filename 2&gt;&amp;1”来更改缺省的重定向文件名。</p>
+<h3 id="nohup__u793A_u4F8B"><a href="#nohup__u793A_u4F8B" class="headerlink" title="nohup 示例"></a>nohup 示例</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@pvcent107 ~]# nohup ping www.ibm.com &amp;</span><br><span class="line">[1] 3059</span><br><span class="line">nohup: appending output to `nohup.out'</span><br><span class="line">[root@pvcent107 ~]# ps -ef |grep 3059</span><br><span class="line">root      3059   984  0 21:06 pts/3    00:00:00 ping www.ibm.com</span><br><span class="line">root      3067   984  0 21:06 pts/3    00:00:00 grep 3059</span><br><span class="line">[root@pvcent107 ~]#</span><br></pre></td></tr></table></figure>
+<h3 id="2-setsid"><a href="#2-setsid" class="headerlink" title="2.setsid"></a>2.setsid</h3><p>nohup 无疑能通过忽略 HUP 信号来使我们的进程避免中途被中断，但如果我们换个角度思考，如果我们的进程不属于接受 HUP 信号的终端的子进程，那么自然也就不会受到 HUP 信号的影响了。setsid 就能帮助我们做到这一点。让我们先来看一下 setsid 的帮助信息：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SETSID(<span class="number">8</span>)                 Linux Programmer’s Manual                 SETSID(<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line">NAME</span><br><span class="line">       setsid - run a program <span class="keyword">in</span> a <span class="keyword">new</span> session</span><br><span class="line"></span><br><span class="line">SYNOPSIS</span><br><span class="line">       setsid program [ arg ... ]</span><br><span class="line"></span><br><span class="line">DESCRIPTION</span><br><span class="line">       setsid runs a program <span class="keyword">in</span> a <span class="keyword">new</span> session.</span><br></pre></td></tr></table></figure></p>
+<p>可见 setsid 的使用也是非常方便的，也只需在要处理的命令前加上 setsid 即可。</p>
+<h3 id="setsid__u793A_u4F8B"><a href="#setsid__u793A_u4F8B" class="headerlink" title="setsid 示例"></a>setsid 示例</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@pvcent107 ~]# setsid ping www.ibm.com</span><br><span class="line">[root@pvcent107 ~]# ps -ef |grep www.ibm.com</span><br><span class="line">root     31094     1  0 07:28 ?        00:00:00 ping www.ibm.com</span><br><span class="line">root     31102 29217  0 07:29 pts/4    00:00:00 grep www.ibm.com</span><br><span class="line">[root@pvcent107 ~]#</span><br></pre></td></tr></table></figure>
+<p>值得注意的是，上例中我们的进程 ID(PID)为31094，而它的父 ID（PPID）为1（即为 init 进程 ID），并不是当前终端的进程 ID。请将此例与nohup 例中的父 ID 做比较。</p>
+<h3 id="3-_26amp_3B"><a href="#3-_26amp_3B" class="headerlink" title="3.&amp;"></a>3.&amp;</h3><p>这里还有一个关于 subshell 的小技巧。我们知道，将一个或多个命名包含在“()”中就能让这些命令在子 shell 中运行中，从而扩展出很多有趣的功能，我们现在要讨论的就是其中之一。<br>当我们将”&amp;”也放入“()”内之后，我们就会发现所提交的作业并不在作业列表中，也就是说，是无法通过jobs来查看的。让我们来看看为什么这样就能躲过 HUP 信号的影响吧。</p>
+<h3 id="subshell__u793A_u4F8B"><a href="#subshell__u793A_u4F8B" class="headerlink" title="subshell 示例"></a>subshell 示例</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@pvcent107 ~]# (ping www.ibm.com &amp;)</span><br><span class="line">[root@pvcent107 ~]# ps -ef |grep www.ibm.com</span><br><span class="line">root     16270     1  0 14:13 pts/4    00:00:00 ping www.ibm.com</span><br><span class="line">root     16278 15362  0 14:13 pts/4    00:00:00 grep www.ibm.com</span><br><span class="line">[root@pvcent107 ~]#</span><br></pre></td></tr></table></figure>
+<p>从上例中可以看出，新提交的进程的父 ID（PPID）为1（init 进程的 PID），并不是当前终端的进程 ID。因此并不属于当前终端的子进程，从而也就不会受到当前终端的 HUP 信号的影响了。</p>
+<h2 id="disown"><a href="#disown" class="headerlink" title="disown"></a>disown</h2><h3 id="u573A_u666F_uFF1A-1"><a href="#u573A_u666F_uFF1A-1" class="headerlink" title="场景："></a>场景：</h3><p>我们已经知道，如果事先在命令前加上 nohup 或者 setsid 就可以避免 HUP 信号的影响。但是如果我们未加任何处理就已经提交了命令，该如何补救才能让它避免 HUP 信号的影响呢？</p>
+<h3 id="u89E3_u51B3_u65B9_u6CD5_uFF1A-1"><a href="#u89E3_u51B3_u65B9_u6CD5_uFF1A-1" class="headerlink" title="解决方法："></a>解决方法：</h3><p>这时想加 nohup 或者 setsid 已经为时已晚，只能通过作业调度和 disown 来解决这个问题了。让我们来看一下 disown 的帮助信息：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">disown [-ar] [-h] [jobspec ...]</span><br><span class="line">	Without options, each jobspec is  removed  from  the  table  <span class="keyword">of</span></span><br><span class="line">	active  jobs.   If  the -h option is given, each jobspec is not</span><br><span class="line">	removed from the table, but is marked so  that  SIGHUP  is  not</span><br><span class="line">	sent  to the job <span class="keyword">if</span> the shell receives a SIGHUP.  If no jobspec</span><br><span class="line">	is present, and neither the -a nor the -r option  is  supplied,</span><br><span class="line">	the  current  job  is  used.  If no jobspec is supplied, the -a</span><br><span class="line">	option means to remove or mark all jobs; the -r option  without</span><br><span class="line">	a  jobspec  argument  restricts operation to running jobs.  The</span><br><span class="line">	<span class="keyword">return</span> value is <span class="number">0</span> unless a jobspec does  not  specify  a  valid</span><br><span class="line">	job.</span><br></pre></td></tr></table></figure></p>
+<p>可以看出，我们可以用如下方式来达成我们的目的。</p>
+<blockquote>
+<p>用disown -h jobspec来使某个作业忽略HUP信号。<br>用disown -ah 来使所有的作业都忽略HUP信号。<br>用disown -rh 来使正在运行的作业忽略HUP信号。<br>需要注意的是，当使用过 disown 之后，会将把目标作业从作业列表中移除，我们将不能再使用jobs来查看它，但是依然能够用ps -ef查找到它。</p>
+</blockquote>
+<p>但是还有一个问题，这种方法的操作对象是作业，如果我们在运行命令时在结尾加了”&amp;”来使它成为一个作业并在后台运行，那么就万事大吉了，我们可以通过jobs命令来得到所有作业的列表。但是如果并没有把当前命令作为作业来运行，如何才能得到它的作业号呢？答案就是用 CTRL-z（按住Ctrl键的同时按住z键）了！</p>
+<p>CTRL-z 的用途就是将当前进程挂起（Suspend），然后我们就可以用jobs命令来查询它的作业号，再用bg jobspec来将它放入后台并继续运行。需要注意的是，如果挂起会影响当前进程的运行结果，请慎用此方法。</p>
+<h3 id="disown__u793A_u4F8B1_uFF08_u5982_u679C_u63D0_u4EA4_u547D_u4EE4_u65F6_u5DF2_u7ECF_u7528_u201C_26amp_3B_u201D_u5C06_u547D_u4EE4_u653E_u5165_u540E_u53F0_u8FD0_u884C_uFF0C_u5219_u53EF_u4EE5_u76F4_u63A5_u4F7F_u7528_u201Cdisown_u201D_uFF09"><a href="#disown__u793A_u4F8B1_uFF08_u5982_u679C_u63D0_u4EA4_u547D_u4EE4_u65F6_u5DF2_u7ECF_u7528_u201C_26amp_3B_u201D_u5C06_u547D_u4EE4_u653E_u5165_u540E_u53F0_u8FD0_u884C_uFF0C_u5219_u53EF_u4EE5_u76F4_u63A5_u4F7F_u7528_u201Cdisown_u201D_uFF09" class="headerlink" title="disown 示例1（如果提交命令时已经用“&amp;”将命令放入后台运行，则可以直接使用“disown”）"></a>disown 示例1（如果提交命令时已经用“&amp;”将命令放入后台运行，则可以直接使用“disown”）</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@pvcent107 build]# cp -r testLargeFile largeFile &amp;</span><br><span class="line">[1] 4825</span><br><span class="line">[root@pvcent107 build]# jobs</span><br><span class="line">[1]+  Running                 cp -i -r testLargeFile largeFile &amp;</span><br><span class="line">[root@pvcent107 build]# disown -h %1</span><br><span class="line">[root@pvcent107 build]# ps -ef |grep largeFile</span><br><span class="line">root      4825   968  1 09:46 pts/4    00:00:00 cp -i -r testLargeFile largeFile</span><br><span class="line">root      4853   968  0 09:46 pts/4    00:00:00 grep largeFile</span><br><span class="line">[root@pvcent107 build]# logout</span><br></pre></td></tr></table></figure>
+<h3 id="disown__u793A_u4F8B2_uFF08_u5982_u679C_u63D0_u4EA4_u547D_u4EE4_u65F6_u672A_u4F7F_u7528_u201C_26amp_3B_u201D_u5C06_u547D_u4EE4_u653E_u5165_u540E_u53F0_u8FD0_u884C_uFF0C_u53EF_u4F7F_u7528_CTRL-z__u548C_u201Cbg_u201D_u5C06_u5176_u653E_u5165_u540E_u53F0_uFF0C_u518D_u4F7F_u7528_u201Cdisown_u201D_uFF09"><a href="#disown__u793A_u4F8B2_uFF08_u5982_u679C_u63D0_u4EA4_u547D_u4EE4_u65F6_u672A_u4F7F_u7528_u201C_26amp_3B_u201D_u5C06_u547D_u4EE4_u653E_u5165_u540E_u53F0_u8FD0_u884C_uFF0C_u53EF_u4F7F_u7528_CTRL-z__u548C_u201Cbg_u201D_u5C06_u5176_u653E_u5165_u540E_u53F0_uFF0C_u518D_u4F7F_u7528_u201Cdisown_u201D_uFF09" class="headerlink" title="disown 示例2（如果提交命令时未使用“&amp;”将命令放入后台运行，可使用 CTRL-z 和“bg”将其放入后台，再使用“disown”）"></a>disown 示例2（如果提交命令时未使用“&amp;”将命令放入后台运行，可使用 CTRL-z 和“bg”将其放入后台，再使用“disown”）</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@pvcent107 build]# cp -r testLargeFile largeFile2</span><br><span class="line"></span><br><span class="line">[1]+  Stopped                 cp -i -r testLargeFile largeFile2</span><br><span class="line">[root@pvcent107 build]# bg %1</span><br><span class="line">[1]+ cp -i -r testLargeFile largeFile2 &amp;</span><br><span class="line">[root@pvcent107 build]# jobs</span><br><span class="line">[1]+  Running                 cp -i -r testLargeFile largeFile2 &amp;</span><br><span class="line">[root@pvcent107 build]# disown -h %1</span><br><span class="line">[root@pvcent107 build]# ps -ef |grep largeFile2</span><br><span class="line">root      5790  5577  1 10:04 pts/3    00:00:00 cp -i -r testLargeFile largeFile2</span><br><span class="line">root      5824  5577  0 10:05 pts/3    00:00:00 grep largeFile2</span><br><span class="line">[root@pvcent107 build]#</span><br></pre></td></tr></table></figure>
+<h2 id="screen"><a href="#screen" class="headerlink" title="screen"></a>screen</h2><h3 id="u573A_u666F_uFF1A-2"><a href="#u573A_u666F_uFF1A-2" class="headerlink" title="场景："></a>场景：</h3><p>我们已经知道了如何让进程免受 HUP 信号的影响，但是如果有大量这种命令需要在稳定的后台里运行，如何避免对每条命令都做这样的操作呢？</p>
+<h3 id="u89E3_u51B3_u65B9_u6CD5_uFF1A-2"><a href="#u89E3_u51B3_u65B9_u6CD5_uFF1A-2" class="headerlink" title="解决方法："></a>解决方法：</h3><p>此时最方便的方法就是 screen 了。简单的说，screen 提供了 ANSI/VT100 的终端模拟器，使它能够在一个真实终端下运行多个全屏的伪终端。screen 的参数很多，具有很强大的功能，我们在此仅介绍其常用功能以及简要分析一下为什么使用 screen 能够避免 HUP 信号的影响。我们先看一下 screen 的帮助信息：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">SCREEN(<span class="number">1</span>)                                                           SCREEN(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">NAME</span><br><span class="line">       screen - screen manager <span class="keyword">with</span> VT100/ANSI terminal emulation</span><br><span class="line"></span><br><span class="line">SYNOPSIS</span><br><span class="line">       screen [ -options ] [ cmd [ args ] ]</span><br><span class="line">       screen -r [[pid.]tty[.host]]</span><br><span class="line">       screen -r sessionowner/[[pid.]tty[.host]]</span><br><span class="line"></span><br><span class="line">DESCRIPTION</span><br><span class="line">       Screen  is  a  full-screen  <span class="built_in">window</span> manager that multiplexes a physical</span><br><span class="line">       terminal between several  processes  (typically  interactive  shells).</span><br><span class="line">       Each  virtual  terminal provides the functions <span class="keyword">of</span> a DEC VT100 terminal</span><br><span class="line">       and, <span class="keyword">in</span> addition, several control functions from the  ISO  <span class="number">6429</span>  (ECMA</span><br><span class="line">       <span class="number">48</span>,  ANSI  X3<span class="number">.64</span>)  and ISO <span class="number">2022</span> standards (e.g. insert/<span class="keyword">delete</span> line and</span><br><span class="line">       support <span class="keyword">for</span> multiple character sets).  There is a  scrollback  history</span><br><span class="line">       buffer  <span class="keyword">for</span>  each virtual terminal and a copy-and-paste mechanism that</span><br><span class="line">       allows moving text regions between windows.</span><br></pre></td></tr></table></figure></p>
+<p>使用 screen 很方便，有以下几个常用选项：</p>
+<blockquote>
+<p>用screen -dmS session name来建立一个处于断开模式下的会话（并指定其会话名）。<br>用screen -list 来列出所有会话。<br>用screen -r session name来重新连接指定会话。<br>用快捷键CTRL-a d 来暂时断开当前会话。</p>
+</blockquote>
+<h3 id="screen__u793A_u4F8B"><a href="#screen__u793A_u4F8B" class="headerlink" title="screen 示例"></a>screen 示例</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@pvcent107 ~]# screen -dmS Urumchi</span><br><span class="line">[root@pvcent107 ~]# screen -list</span><br><span class="line">There is a screen on:</span><br><span class="line">        12842.Urumchi   (Detached)</span><br><span class="line">1 Socket in /tmp/screens/S-root.</span><br><span class="line"></span><br><span class="line">[root@pvcent107 ~]# screen -r Urumchi</span><br></pre></td></tr></table></figure>
+<p>当我们用“-r”连接到 screen 会话后，我们就可以在这个伪终端里面为所欲为，再也不用担心 HUP 信号会对我们的进程造成影响，也不用给每个命令前都加上“nohup”或者“setsid”了。这是为什么呢？让我来看一下下面两个例子吧。</p>
+<h3 id="1-__u672A_u4F7F_u7528_screen__u65F6_u65B0_u8FDB_u7A0B_u7684_u8FDB_u7A0B_u6811"><a href="#1-__u672A_u4F7F_u7528_screen__u65F6_u65B0_u8FDB_u7A0B_u7684_u8FDB_u7A0B_u6811" class="headerlink" title="1. 未使用 screen 时新进程的进程树"></a>1. 未使用 screen 时新进程的进程树</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@pvcent107 ~]# ping www.google.com &amp;</span><br><span class="line">[1] 9499</span><br><span class="line">[root@pvcent107 ~]# pstree -H 9499</span><br><span class="line">init─┬─Xvnc</span><br><span class="line">     ├─acpid</span><br><span class="line">     ├─atd</span><br><span class="line">     ├─2*[sendmail]	</span><br><span class="line">     ├─sshd─┬─sshd───bash───pstree</span><br><span class="line">     │       └─sshd───bash───ping</span><br></pre></td></tr></table></figure>
+<p>我们可以看出，未使用 screen 时我们所处的 bash 是 sshd 的子进程，当 ssh 断开连接时，HUP 信号自然会影响到它下面的所有子进程（包括我们新建立的 ping 进程）。</p>
+<h3 id="2-__u4F7F_u7528_u4E86_screen__u540E_u65B0_u8FDB_u7A0B_u7684_u8FDB_u7A0B_u6811"><a href="#2-__u4F7F_u7528_u4E86_screen__u540E_u65B0_u8FDB_u7A0B_u7684_u8FDB_u7A0B_u6811" class="headerlink" title="2. 使用了 screen 后新进程的进程树"></a>2. 使用了 screen 后新进程的进程树</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@pvcent107 ~]# screen -r Urumchi</span><br><span class="line">[root@pvcent107 ~]# ping www.ibm.com &amp;</span><br><span class="line">[1] 9488</span><br><span class="line">[root@pvcent107 ~]# pstree -H 9488</span><br><span class="line">init─┬─Xvnc</span><br><span class="line">     ├─acpid</span><br><span class="line">     ├─atd</span><br><span class="line">     ├─screen───bash───ping</span><br><span class="line">     ├─2*[sendmail]</span><br></pre></td></tr></table></figure>
+<p>而使用了 screen 后就不同了，此时 bash 是 screen 的子进程，而 screen 是 init（PID为1）的子进程。那么当 ssh 断开连接时，HUP 信号自然不会影响到 screen 下面的子进程了。<br>回页首</p>
+<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>现在几种方法已经介绍完毕，我们可以根据不同的场景来选择不同的方案。nohup/setsid 无疑是临时需要时最方便的方法，disown 能帮助我们来事后补救当前已经在运行了的作业，而 screen 则是在大批量操作时不二的选择了。</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/centos/" rel="tag">#centos</a>
+          
+            <a href="/tags/golang/" rel="tag">#golang</a>
+          
+            <a href="/tags/linux/" rel="tag">#linux</a>
+          
+            <a href="/tags/文摘/" rel="tag">#文摘</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/07/golang的centos安装/" rel="next" title="golang的centos安装">
+                <i class="fa fa-chevron-left"></i> golang的centos安装
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/01/07/centos安装源配置/" rel="prev" title="centos安装源配置">
+                centos安装源配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/01/07/linux让进程后台运行的方法/"
+     data-title="linux让进程后台运行的方法"
+     data-content=""
+     data-url="http://zuoyanart.github.io/2016/01/07/linux让进程后台运行的方法/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/01/07/linux让进程后台运行的方法/"
+           data-title="linux让进程后台运行的方法" data-url="http://zuoyanart.github.io/2016/01/07/linux让进程后台运行的方法/">
+      </div>
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="左盐" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">左盐</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description"></p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/spnt" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://gitcafe.com/spnt" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> gitcafe
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#nohup/setsid/_26amp_3B"><span class="nav-number">1.</span> <span class="nav-text">nohup/setsid/&</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u573A_u666F_uFF1A"><span class="nav-number">1.1.</span> <span class="nav-text">场景：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u89E3_u51B3_u65B9_u6CD5_uFF1A"><span class="nav-number">1.2.</span> <span class="nav-text">解决方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-_nohup"><span class="nav-number">1.3.</span> <span class="nav-text">1. nohup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nohup__u793A_u4F8B"><span class="nav-number">1.4.</span> <span class="nav-text">nohup 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-setsid"><span class="nav-number">1.5.</span> <span class="nav-text">2.setsid</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setsid__u793A_u4F8B"><span class="nav-number">1.6.</span> <span class="nav-text">setsid 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-_26amp_3B"><span class="nav-number">1.7.</span> <span class="nav-text">3.&</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#subshell__u793A_u4F8B"><span class="nav-number">1.8.</span> <span class="nav-text">subshell 示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#disown"><span class="nav-number">2.</span> <span class="nav-text">disown</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u573A_u666F_uFF1A-1"><span class="nav-number">2.1.</span> <span class="nav-text">场景：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u89E3_u51B3_u65B9_u6CD5_uFF1A-1"><span class="nav-number">2.2.</span> <span class="nav-text">解决方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#disown__u793A_u4F8B1_uFF08_u5982_u679C_u63D0_u4EA4_u547D_u4EE4_u65F6_u5DF2_u7ECF_u7528_u201C_26amp_3B_u201D_u5C06_u547D_u4EE4_u653E_u5165_u540E_u53F0_u8FD0_u884C_uFF0C_u5219_u53EF_u4EE5_u76F4_u63A5_u4F7F_u7528_u201Cdisown_u201D_uFF09"><span class="nav-number">2.3.</span> <span class="nav-text">disown 示例1（如果提交命令时已经用“&”将命令放入后台运行，则可以直接使用“disown”）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#disown__u793A_u4F8B2_uFF08_u5982_u679C_u63D0_u4EA4_u547D_u4EE4_u65F6_u672A_u4F7F_u7528_u201C_26amp_3B_u201D_u5C06_u547D_u4EE4_u653E_u5165_u540E_u53F0_u8FD0_u884C_uFF0C_u53EF_u4F7F_u7528_CTRL-z__u548C_u201Cbg_u201D_u5C06_u5176_u653E_u5165_u540E_u53F0_uFF0C_u518D_u4F7F_u7528_u201Cdisown_u201D_uFF09"><span class="nav-number">2.4.</span> <span class="nav-text">disown 示例2（如果提交命令时未使用“&”将命令放入后台运行，可使用 CTRL-z 和“bg”将其放入后台，再使用“disown”）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#screen"><span class="nav-number">3.</span> <span class="nav-text">screen</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u573A_u666F_uFF1A-2"><span class="nav-number">3.1.</span> <span class="nav-text">场景：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u89E3_u51B3_u65B9_u6CD5_uFF1A-2"><span class="nav-number">3.2.</span> <span class="nav-text">解决方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#screen__u793A_u4F8B"><span class="nav-number">3.3.</span> <span class="nav-text">screen 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-__u672A_u4F7F_u7528_screen__u65F6_u65B0_u8FDB_u7A0B_u7684_u8FDB_u7A0B_u6811"><span class="nav-number">3.4.</span> <span class="nav-text">1. 未使用 screen 时新进程的进程树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-__u4F7F_u7528_u4E86_screen__u540E_u65B0_u8FDB_u7A0B_u7684_u8FDB_u7A0B_u6811"><span class="nav-number">3.5.</span> <span class="nav-text">2. 使用了 screen 后新进程的进程树</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u603B_u7ED3"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">左盐</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"spntblog"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+
+    
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>

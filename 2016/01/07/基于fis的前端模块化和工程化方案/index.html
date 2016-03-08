@@ -1,0 +1,818 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="fis,前端,前端工程化,前端模块化," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="左盐" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="前端构建工具面对日益复杂的前端环境以及前端技术、node技术的高速发展，前端的开发也越来越工程化，体系化，也就是出现了前端自动化构建工具。他们完成的任务目标基本是：
+
+
+js，css,图片的自动压缩合并（图片也即是是自动sprite）
+js，css,图片自动添加域名
+js，css,图片自动添加md5或版本号
+自动监听文件变化
+sass/less/coffee等的自动编译
+支持amd/cmd的模块开">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于fis的前端模块化和工程化方案">
+<meta property="og:url" content="http://zuoyanart.github.io/2016/01/07/基于fis的前端模块化和工程化方案/index.html">
+<meta property="og:site_name" content="左盐">
+<meta property="og:description" content="前端构建工具面对日益复杂的前端环境以及前端技术、node技术的高速发展，前端的开发也越来越工程化，体系化，也就是出现了前端自动化构建工具。他们完成的任务目标基本是：
+
+
+js，css,图片的自动压缩合并（图片也即是是自动sprite）
+js，css,图片自动添加域名
+js，css,图片自动添加md5或版本号
+自动监听文件变化
+sass/less/coffee等的自动编译
+支持amd/cmd的模块开">
+<meta property="og:updated_time" content="2016-01-08T04:09:50.635Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于fis的前端模块化和工程化方案">
+<meta name="twitter:description" content="前端构建工具面对日益复杂的前端环境以及前端技术、node技术的高速发展，前端的开发也越来越工程化，体系化，也就是出现了前端自动化构建工具。他们完成的任务目标基本是：
+
+
+js，css,图片的自动压缩合并（图片也即是是自动sprite）
+js，css,图片自动添加域名
+js，css,图片自动添加md5或版本号
+自动监听文件变化
+sass/less/coffee等的自动编译
+支持amd/cmd的模块开">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> 基于fis的前端模块化和工程化方案 | 左盐 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c529f53e7be852183aa3b4004696ce38";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">左盐</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-pizzaui">
+          <a href="http://ui.zuoyan.space" rel="section">
+            
+              <i class="menu-item-icon fa fa-question-circle fa-fw"></i> <br />
+            
+            menu.pizzaui
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                基于fis的前端模块化和工程化方案
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-01-07T18:20:59+08:00" content="2016-01-07">
+              2016-01-07
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/01/07/基于fis的前端模块化和工程化方案/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/07/基于fis的前端模块化和工程化方案/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h2 id="u524D_u7AEF_u6784_u5EFA_u5DE5_u5177"><a href="#u524D_u7AEF_u6784_u5EFA_u5DE5_u5177" class="headerlink" title="前端构建工具"></a>前端构建工具</h2><p>面对日益复杂的前端环境以及前端技术、node技术的高速发展，前端的开发也越来越工程化，体系化，也就是出现了前端自动化构建工具。他们完成的任务目标基本是：</p>
+<blockquote>
+<ul>
+<li>js，css,图片的自动压缩合并（图片也即是是自动sprite）</li>
+<li>js，css,图片自动添加域名</li>
+<li>js，css,图片自动添加md5或版本号</li>
+<li>自动监听文件变化</li>
+<li>sass/less/coffee等的自动编译</li>
+<li>支持amd/cmd的模块开发，可自动文件依赖</li>
+<li>可以部署文件</li>
+<li>网页自动刷新</li>
+<li>实时编译</li>
+</ul>
+</blockquote>
+<p>成熟的前端构建工具也有很多，比如：Gulp.js，Grunt，webpark, fis等等，其他构建工具本人使用不多，本文主要是对fis的前端工程化和模块化的使用做详细介绍</p>
+<h2 id="u5173_u4E8Efis"><a href="#u5173_u4E8Efis" class="headerlink" title="关于fis"></a>关于fis</h2><p>fis是百度研发的一套前端构建工具，拥有丰富的脚手架和组件仓库。因为fis是本人接触的最早的前端构建工具，所以一直沿用到了至今。</p>
+<pre><code>注： 本文是针对fis2，基于fis3的配置和插件将在稍后给出
+</code></pre><h2 id="fis_u7684_u524D_u7AEF_u5DE5_u7A0B_u5316_u548C_u6A21_u5757_u5316_u57FA_u7840_u63D2_u4EF6"><a href="#fis_u7684_u524D_u7AEF_u5DE5_u7A0B_u5316_u548C_u6A21_u5757_u5316_u57FA_u7840_u63D2_u4EF6" class="headerlink" title="fis的前端工程化和模块化基础插件"></a>fis的前端工程化和模块化基础插件</h2><h3 id="1-_u81EA_u52A8_u6253_u5305_u5408_u5E76_u63D2_u4EF6"><a href="#1-_u81EA_u52A8_u6253_u5305_u5408_u5E76_u63D2_u4EF6" class="headerlink" title="1.自动打包合并插件"></a>1.自动打包合并插件</h3><h4 id="fis_u914D_u7F6E"><a href="#fis_u914D_u7F6E" class="headerlink" title="fis配置"></a>fis配置</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//开始autoCombine可以将零散资源进行自动打包</span></span><br><span class="line">fis.config.set(<span class="string">'settings.postpackager.simple.autoCombine'</span>, <span class="literal">true</span>);</span><br><span class="line"><span class="comment">//开启autoReflow使得在关闭autoCombine的情况下，依然会优化脚本与样式资源引用位置</span></span><br><span class="line">fis.config.set(<span class="string">'settings.postpackager.simple.autoReflow'</span>, <span class="literal">true</span>);</span><br><span class="line">fis.config.set(<span class="string">'settings.postpackager.simple.output'</span>, <span class="string">'pkg/mcren_$&#123;hash&#125;'</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="u4F5C_u7528"><a href="#u4F5C_u7528" class="headerlink" title="作用"></a>作用</h4><p>将html中分散的静态资源进行自动合并打包</p>
+<h4 id="u5E94_u7528_u4E3E_u4F8B_uFF1A"><a href="#u5E94_u7528_u4E3E_u4F8B_uFF1A" class="headerlink" title="应用举例："></a>应用举例：</h4><p>原始文件<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">"stylesheet"</span> type=<span class="string">"text/css"</span> href=<span class="string">"/css/mcren.css"</span>&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">type</span>=<span class="value">"text/css"</span> <span class="attribute">href</span>=<span class="value">"/site/index/index/index.css"</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<p>转换后<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link type=<span class="string">"text/css"</span> rel=<span class="string">"stylesheet"</span> href=<span class="string">"/pkg/mcren_7636e.css"</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到fis会自动合并多个css到同一个文件里，这个合并不仅仅适用于css，也同样适用与js，并且将自动把css文件放入header头，js放在body结束前，有了这个功能也就具备的模块化开发的大前提</p>
+<h3 id="fis_u7684include_u529F_u80FD"><a href="#fis_u7684include_u529F_u80FD" class="headerlink" title="fis的include功能"></a>fis的include功能</h3><h4 id="fis_u914D_u7F6E-1"><a href="#fis_u914D_u7F6E-1" class="headerlink" title="fis配置"></a>fis配置</h4><p>默认支持，无须插件</p>
+<h4 id="u4F5C_u7528-1"><a href="#u4F5C_u7528-1" class="headerlink" title="作用"></a>作用</h4><p>大家在使用模板的时候，肯定是少不了include功能的， 即公共部分的文件引用。fis同样支持这个功能，而且借助与自动打包功能，include功能的作用也被放大的很多.(fis支持多级include)</p>
+<h4 id="u5E94_u7528_u4E3E_u4F8B"><a href="#u5E94_u7528_u4E3E_u4F8B" class="headerlink" title="应用举例"></a>应用举例</h4><h5 id="u4E3B_u6A21_u677F_u6587_u4EF6"><a href="#u4E3B_u6A21_u677F_u6587_u4EF6" class="headerlink" title="主模板文件"></a>主模板文件</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"description"</span> <span class="attribute">content</span>=<span class="value">""</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"keywords"</span> <span class="attribute">content</span>=<span class="value">""</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">type</span>=<span class="value">"text/css"</span> <span class="attribute">href</span>=<span class="value">"/css/mcren.css"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">type</span>=<span class="value">"text/css"</span> <span class="attribute">href</span>=<span class="value">"/site/index/index/index.css"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"/lib/mod.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"import"</span> <span class="attribute">href</span>=<span class="value">"/widget/header-small/header.html?__inline"</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h5 id="u6B21_u6A21_u7248_u6587_u4EF6_uFF08header-small/header-html_uFF09"><a href="#u6B21_u6A21_u7248_u6587_u4EF6_uFF08header-small/header-html_uFF09" class="headerlink" title="次模版文件（header-small/header.html）"></a>次模版文件（header-small/header.html）</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">"stylesheet"</span> type=<span class="string">"text/css"</span> href=<span class="string">"header.css"</span>&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"header"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"import"</span> <span class="attribute">href</span>=<span class="value">"../loginstate/loginstate.html?__inline"</span>&gt;</span><span class="tag">&lt;<span class="title">h1</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/"</span>&gt;</span>主页<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">h1</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">    <span class="keyword">var</span> jsfunc = <span class="built_in">require</span>(<span class="string">'jsfunc/jsfunc'</span>);</span><br><span class="line">    jsfunc.init();</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h5 id="u8F6C_u6362_u540E"><a href="#u8F6C_u6362_u540E" class="headerlink" title="转换后"></a>转换后</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"description"</span> <span class="attribute">content</span>=<span class="value">""</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"keywords"</span> <span class="attribute">content</span>=<span class="value">""</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">link</span> <span class="attribute">type</span>=<span class="value">"text/css"</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">href</span>=<span class="value">"/pkg/mcren_7636e.css"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"header"</span>&gt;</span></span><br><span class="line">	  <span class="tag">&lt;<span class="title">div</span>&gt;</span></span><br><span class="line">		  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"loginstate"</span>&gt;</span></span><br><span class="line">	        <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/space"</span>&gt;</span>左盐<span class="tag">&lt;/<span class="title">a</span>&gt;</span> | <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"javascript:void(0);"</span>&gt;</span>退出<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"member.jpg"</span> <span class="attribute">id</span>=<span class="value">"avatar"</span> /&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="title">h1</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/"</span>&gt;</span>名场<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">h1</span>&gt;</span></span><br><span class="line">	   <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!--省略的html代码--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"/lib/mod.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">    <span class="keyword">var</span> jsfunc = <span class="built_in">require</span>(<span class="string">'jsfunc/jsfunc'</span>);</span><br><span class="line">    jsfunc.init();</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="u8BF4_u660E"><a href="#u8BF4_u660E" class="headerlink" title="说明"></a>说明</h4><p>可以看到，经过fis处理后，本来应该分散的css被组合放进了head头里，js被放在了body结束前，模板的html代码也正常引入了进去。</p>
+<blockquote>
+<p>另外大家可以看到我模块的划分，header模块的html是引入css的，也就是说模块与模块之间以及模块和主体页面之间的css都是独立的，这样充分解耦，可以有效的解决css的维护问题，</p>
+</blockquote>
+<h3 id="u56FE_u7247_u96EA_u78A7"><a href="#u56FE_u7247_u96EA_u78A7" class="headerlink" title="图片雪碧"></a>图片雪碧</h3><h4 id="fis_u914D_u7F6E-2"><a href="#fis_u914D_u7F6E-2" class="headerlink" title="fis配置"></a>fis配置</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fis.config.set(<span class="string">'modules.spriter'</span>, <span class="string">'csssprites'</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="u4F5C_u7528-2"><a href="#u4F5C_u7528-2" class="headerlink" title="作用"></a>作用</h4><p>自动把css中的图片转换成雪碧图</p>
+<h4 id="u5E94_u7528_u4E3E_u4F8B-1"><a href="#u5E94_u7528_u4E3E_u4F8B-1" class="headerlink" title="应用举例"></a>应用举例</h4><p>不写了，大家都懂的</p>
+<h3 id="ejs_u5206_u6790_u80FD_u529B"><a href="#ejs_u5206_u6790_u80FD_u529B" class="headerlink" title="ejs分析能力"></a>ejs分析能力</h3><h4 id="fis_u914D_u7F6E-3"><a href="#fis_u914D_u7F6E-3" class="headerlink" title="fis配置"></a>fis配置</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//tell fis that `.ejs` is a js file </span></span><br><span class="line">fis.config.set(<span class="string">'roadmap.ext.ejs'</span>, <span class="string">'js'</span>);</span><br><span class="line"><span class="comment">//tell fis that parse `.ejs` file by using `fis-parser-ejs` plugin </span></span><br><span class="line">fis.config.set(<span class="string">'modules.parser.ejs'</span>, <span class="string">'ejs'</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="u4F5C_u7528-3"><a href="#u4F5C_u7528-3" class="headerlink" title="作用"></a>作用</h4><p>大家知道，写js打印html字符串到页面的时候，如果在js里面串接html字符串是一种很难受的体验，所以fis也就有了这个插件，这个插件可以给js方法添加引用ejs模板的能力，这里ejs的使用方法和原生的完全兼容</p>
+<h4 id="u5E94_u7528_u4E3E_u4F8B-2"><a href="#u5E94_u7528_u4E3E_u4F8B-2" class="headerlink" title="应用举例"></a>应用举例</h4><h5 id="js_u51FD_u6570"><a href="#js_u51FD_u6570" class="headerlink" title="js函数"></a>js函数</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ejsEx</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> tpl = __inline(<span class="string">'comment.ejs'</span>);</span><br><span class="line">	<span class="keyword">var</span> s = tpl(&#123;</span><br><span class="line">		title: <span class="string">"我的ejs模板"</span></span><br><span class="line">	&#125;);</span><br><span class="line">	<span class="built_in">console</span>.log(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="ejs_u6A21_u677F"><a href="#ejs_u6A21_u677F" class="headerlink" title="ejs模板"></a>ejs模板</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1&gt;<span class="xml"><span class="tag">&lt;<span class="title">%=</span> <span class="attribute">title</span>%&gt;</span><span class="tag">&lt;/<span class="title">h1</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="u8F93_u51FA"><a href="#u8F93_u51FA" class="headerlink" title="输出"></a>输出</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1&gt;我的ejs模板&lt;<span class="regexp">/h1&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="u76EE_u5F55_u7ED3_u6784"><a href="#u76EE_u5F55_u7ED3_u6784" class="headerlink" title="目录结构"></a>目录结构</h2><p>上面已经介绍了fis的模块化基础能力，现在开始实践fis的模块化开发能力。当然fis的amd/cmd，域名添加等等基础功能，这里没有叙述，您可以自行上官网查看学习</p>
+<blockquote>
+<p>根目录</p>
+<blockquote>
+<p>css //less生成的css文件<br>font //字体图标文件<br>img //公共图片<br>less<br>lib //系统类库<br>modules //常用的module</p>
+<blockquote>
+<p>jquery<br>laydate<br>layer<br>pizzalayer<br>pizzatools //网站工具类<br>pizzaui //ui组件<br>store //本地化插件<br>xss //xss过滤插件</p>
+</blockquote>
+<p>site //非模块的css，js<br>views //网页模板文件<br>widget //模块</p>
+<blockquote>
+<p>head //头部模块<br>footer //底部模块<br>nav //菜单模块</p>
+</blockquote>
+<p>fis-conf.js //fis配置文件</p>
+</blockquote>
+</blockquote>
+<p>因为我的技术构架是： 前端 + nodejs + api，所以使用这种目录结构，用户可根据自己的项目目录自由更改。</p>
+<h3 id="u8BF4_u660E-1"><a href="#u8BF4_u660E-1" class="headerlink" title="说明"></a>说明</h3><h4 id="modules_u76EE_u5F55"><a href="#modules_u76EE_u5F55" class="headerlink" title="modules目录"></a>modules目录</h4><p>modules都是工具类，只包含js，<br>目录结构为：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">---根目录</span><br><span class="line">----modules</span><br><span class="line">-----jquery</span><br><span class="line">------jquery-<span class="number">1.11</span><span class="number">.3</span>.min.js</span><br></pre></td></tr></table></figure></p>
+<p>引用方式为：require(‘文件夹名字’)<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">'jquery'</span>)</span><br></pre></td></tr></table></figure></p>
+<h4 id="widget_u76EE_u5F55"><a href="#widget_u76EE_u5F55" class="headerlink" title="widget目录"></a>widget目录</h4><p>widget目录都是网站模块，可包含js,css,html,图片<br>目录结构为：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">---根目录</span><br><span class="line">----widget</span><br><span class="line">-----loginstate</span><br><span class="line">------loginstate.less</span><br><span class="line">------loginstate.js</span><br><span class="line">------loginstate.html</span><br><span class="line">------loginstate.jpg</span><br></pre></td></tr></table></figure></p>
+<p>引用方式为：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">"import"</span> href=<span class="string">"/widget/loginstate/loginstate.html?__inline"</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="u4E00_u4E2A_u6A21_u5757_u7684_u4EE3_u7801_u793A_u4F8B"><a href="#u4E00_u4E2A_u6A21_u5757_u7684_u4EE3_u7801_u793A_u4F8B" class="headerlink" title="一个模块的代码示例"></a>一个模块的代码示例</h2><h3 id="loginstate-html_u4EE3_u7801"><a href="#loginstate-html_u4EE3_u7801" class="headerlink" title="loginstate.html代码"></a>loginstate.html代码</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">"stylesheet"</span> type=<span class="string">"text/css"</span> href=<span class="string">"loginstate.css"</span>&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"loginstate"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/space"</span>&gt;</span>左盐<span class="tag">&lt;/<span class="title">a</span>&gt;</span> | <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"javascript:void(0);"</span>&gt;</span>退出<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"member.jpg"</span> <span class="attribute">id</span>=<span class="value">"avatar"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">	<span class="keyword">var</span> loginstate = <span class="built_in">require</span>(<span class="string">'loginstate/loginstate'</span>);</span><br><span class="line">	loginstate.init();</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="loginstate-js_u4EE3_u7801"><a href="#loginstate-js_u4EE3_u7801" class="headerlink" title="loginstate.js代码"></a>loginstate.js代码</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> $  = <span class="built_in">require</span>(<span class="string">'jquery'</span>);</span><br><span class="line"><span class="keyword">var</span> tools = <span class="built_in">require</span>(<span class="string">'pizzatools'</span>);</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'pizzalayer'</span>);</span><br><span class="line"><span class="keyword">var</span> loginState = <span class="keyword">new</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> _self = <span class="keyword">this</span>;</span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 打印登录状态</span><br><span class="line">	 * @return &#123;[type]&#125; [description]</span><br><span class="line">	 */</span></span><br><span class="line">	_self.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">var</span> s = <span class="string">''</span>;</span><br><span class="line">		<span class="keyword">var</span> id = tools.getCookie(<span class="string">'id'</span>);</span><br><span class="line">		<span class="keyword">if</span>(id == <span class="string">'0'</span> ) &#123;<span class="comment">//未登录</span></span><br><span class="line">			s = <span class="string">'&lt;a href="/login?f='</span>+<span class="built_in">document</span>.location.href+<span class="string">'" class="btn btn-primary"&gt;登录&lt;/a&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;a href="/reg" class="btn btn-primary"&gt;注册&lt;/a&gt;'</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			s = <span class="string">'&lt;a href="/space"&gt;'</span> + tools.getCookie(<span class="string">'nickname'</span>) + <span class="string">'&lt;/a&gt; | &lt;a href="javascript:void(0);" onclick="loginstate.loginout();"&gt;退出&lt;/a&gt;&lt;img src="'</span> + tools.siteData.url.avatar + tools.getCookie(<span class="string">'avatar'</span>) + <span class="string">'!v1" id="avatar" /&gt;'</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		$(<span class="string">'.loginstate'</span>).html(s);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 退出登录</span><br><span class="line">	 * @return &#123;[type]&#125; [description]</span><br><span class="line">	 */</span></span><br><span class="line">	_self.loginout = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		$.ajax(&#123;</span><br><span class="line">			type:<span class="string">'GET'</span>,</span><br><span class="line">			url:<span class="string">'/index/loginout'</span>,</span><br><span class="line">			success: <span class="function"><span class="keyword">function</span>(<span class="params">msg</span>) </span>&#123;</span><br><span class="line">				<span class="keyword">var</span> url = <span class="built_in">document</span>.location.href.split(<span class="string">'/'</span>);</span><br><span class="line">				<span class="keyword">if</span>(url[<span class="number">3</span>] == <span class="string">'space'</span>) &#123;</span><br><span class="line">					<span class="built_in">document</span>.location.href = <span class="string">'/'</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> &#123;</span><br><span class="line">					<span class="built_in">document</span>.location.reload();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">module</span>.exports = loginState;</span><br></pre></td></tr></table></figure>
+<h3 id="index-html_u4EE3_u7801"><a href="#index-html_u4EE3_u7801" class="headerlink" title="index.html代码"></a>index.html代码</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"header"</span>&gt;</span><br><span class="line">	<span class="xml"><span class="tag">&lt;<span class="title">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"import"</span> <span class="attribute">href</span>=<span class="value">"/widget/loginstate/loginstate.html?__inline"</span>&gt;</span><span class="tag">&lt;<span class="title">h1</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/"</span>&gt;</span>主页<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">h1</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>由此前端模块化已经全部完成</p>
+<h2 id="u6240_u9700_u63D2_u4EF6"><a href="#u6240_u9700_u63D2_u4EF6" class="headerlink" title="所需插件"></a>所需插件</h2><ul>
+<li>fis-postprocessor-require-async</li>
+<li>fis-parser-ejs</li>
+<li>fis-postpackager-autoload</li>
+<li>fis-postpackager-simple</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install 以上插件即可</span><br></pre></td></tr></table></figure>
+<h2 id="fis-conf-js"><a href="#fis-conf-js" class="headerlink" title="fis-conf.js"></a>fis-conf.js</h2><p>结合我的项目，本人的配置文件如下。下载本配置文件并且安装好fis后，可以直接使用。（由于项目发展时间很长，配置文件已经显得啰嗦，如果大拿研究了fis，可自行优化自己的配置文件）<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br></pre></td><td class="code"><pre><span class="line">fis.config.set(<span class="string">'livereload.port'</span>, <span class="number">8136</span>);</span><br><span class="line"><span class="comment">//use css sprites</span></span><br><span class="line">fis.config.set(<span class="string">'modules.spriter'</span>, <span class="string">'csssprites'</span>);</span><br><span class="line"><span class="comment">//tell fis that `.ejs` is a js file </span></span><br><span class="line">fis.config.set(<span class="string">'roadmap.ext.ejs'</span>, <span class="string">'js'</span>);</span><br><span class="line"><span class="comment">//tell fis that parse `.ejs` file by using `fis-parser-ejs` plugin </span></span><br><span class="line">fis.config.set(<span class="string">'modules.parser.ejs'</span>, <span class="string">'ejs'</span>);</span><br><span class="line"><span class="comment">//set options if you need </span></span><br><span class="line"><span class="comment">//@see https://github.com/visionmedia/ejs#options </span></span><br><span class="line">fis.config.set(<span class="string">'settings.parser.ejs'</span>, &#123;</span><br><span class="line">    open: <span class="string">'&lt;%'</span>,</span><br><span class="line">    close: <span class="string">'%&gt;'</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//使用simple插件，自动应用pack的资源引用</span></span><br><span class="line">fis.config.set(<span class="string">'modules.postpackager'</span>, <span class="string">'simple'</span>);</span><br><span class="line"><span class="comment">//开始autoCombine可以将零散资源进行自动打包</span></span><br><span class="line">fis.config.set(<span class="string">'settings.postpackager.simple.autoCombine'</span>, <span class="literal">true</span>);</span><br><span class="line"><span class="comment">//开启autoReflow使得在关闭autoCombine的情况下，依然会优化脚本与样式资源引用位置</span></span><br><span class="line">fis.config.set(<span class="string">'settings.postpackager.simple.autoReflow'</span>, <span class="literal">true</span>);</span><br><span class="line">fis.config.set(<span class="string">'settings.postpackager.simple.output'</span>, <span class="string">'pkg/mcren_$&#123;hash&#125;'</span>);</span><br><span class="line"></span><br><span class="line">fis.config.merge(&#123;</span><br><span class="line">    pack: &#123;</span><br><span class="line">        <span class="string">'pkg/base.js'</span>: [<span class="string">'/modules/jquery/*.js'</span>, <span class="string">'/modules/layer/*.js'</span>, <span class="string">'/modules/pizzalayer/*.js'</span>, <span class="string">'/modules/pizzatools/*.js'</span>],</span><br><span class="line">        <span class="string">'pkg/kindeditor.js'</span>: [<span class="string">'/widget/kindeditor/kindeditor-min.js'</span>]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">fis.config.merge(&#123;</span><br><span class="line">    statics: <span class="string">'/public'</span>,</span><br><span class="line">    modules: &#123;</span><br><span class="line">        postprocessor: &#123;</span><br><span class="line">            js: <span class="string">"jswrapper, require-async"</span>,</span><br><span class="line">            html: <span class="string">"require-async"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        postpackager: [<span class="string">'autoload'</span>, <span class="string">'simple'</span>],</span><br><span class="line">        lint: &#123;</span><br><span class="line">            js: <span class="string">'jshint'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    roadmap: &#123;</span><br><span class="line">        ext: &#123;</span><br><span class="line"></span><br><span class="line">        &#125;,</span><br><span class="line">        path: [&#123;</span><br><span class="line">            reg: <span class="regexp">/^\/modules\/laydate\/(need|skins)\/.*\.(js|css|png|gif)$/i</span>,</span><br><span class="line">            useHash: <span class="literal">false</span>,</span><br><span class="line">            isMod: <span class="literal">false</span>,</span><br><span class="line">            release: <span class="string">'$&#123;statics&#125;/$&amp;'</span>,</span><br><span class="line">            url: <span class="string">'$&amp;'</span></span><br><span class="line"></span><br><span class="line">        &#125;, &#123;</span><br><span class="line">            reg: <span class="regexp">/^\/widget\/kindeditor\/(lang|plugins|themes)\/.*\.(js|css|png|gif)$/i</span>,</span><br><span class="line">            useHash: <span class="literal">false</span>,</span><br><span class="line">            isMod: <span class="literal">false</span>,</span><br><span class="line">            release: <span class="string">'$&#123;statics&#125;/$&amp;'</span>,</span><br><span class="line">            url: <span class="string">'$&amp;'</span></span><br><span class="line"></span><br><span class="line">        &#125;, &#123;</span><br><span class="line">            reg: <span class="regexp">/^\/lib\/(.*)\.(js)$/i</span>,</span><br><span class="line">            isMod: <span class="literal">false</span>,</span><br><span class="line">            release: <span class="string">'$&#123;statics&#125;/$&amp;'</span>,</span><br><span class="line">            url: <span class="string">'/lib/$1'</span></span><br><span class="line">        &#125;, &#123;</span><br><span class="line">            reg: <span class="regexp">/^\/font\/(.*)$/i</span>,</span><br><span class="line">            isMod: <span class="literal">false</span>,</span><br><span class="line">            release: <span class="string">'$&#123;statics&#125;/$&amp;'</span>,</span><br><span class="line">            url: <span class="string">'/font/$1'</span></span><br><span class="line">        &#125;, &#123;</span><br><span class="line">            reg: <span class="regexp">/^\/views\/(.*)$/i</span>,</span><br><span class="line">            useCache: <span class="literal">false</span>,</span><br><span class="line">            release: <span class="string">'/views/$1'</span></span><br><span class="line">        &#125;, &#123;</span><br><span class="line">            <span class="comment">//一级同名组件，可以引用短路径，比如modules/jquery/juqery.js</span></span><br><span class="line">            <span class="comment">//直接引用为var $ = require('jquery');</span></span><br><span class="line">            reg: <span class="regexp">/^\/modules\/([^\/]+)\/(.*)\.(js)$/i</span>,</span><br><span class="line">            <span class="comment">//是组件化的，会被jswrapper包装</span></span><br><span class="line">            isMod: <span class="literal">true</span>,</span><br><span class="line">            <span class="comment">//id为文件夹名</span></span><br><span class="line">            id: <span class="string">'$1'</span>,</span><br><span class="line">            release: <span class="string">'$&#123;statics&#125;/$&amp;'</span>,</span><br><span class="line">            url: <span class="string">'$0'</span></span><br><span class="line">        &#125;, &#123;</span><br><span class="line">            <span class="comment">//组件化的webpart的js</span></span><br><span class="line">            reg: <span class="regexp">/^\/(widget|site)\/(.*)\.(js)$/i</span>,</span><br><span class="line">            isMod: <span class="literal">true</span>,</span><br><span class="line">            id: <span class="string">'$2'</span>,</span><br><span class="line">            release: <span class="string">'$&#123;statics&#125;/$&amp;'</span>,</span><br><span class="line">            url: <span class="string">'$&amp;'</span></span><br><span class="line">        &#125;, &#123;</span><br><span class="line">            <span class="comment">//modules目录下的其他脚本文件</span></span><br><span class="line">            reg: <span class="regexp">/^\/modules\/(.*)\.(js)$/i</span>,</span><br><span class="line">            <span class="comment">//是组件化的，会被jswrapper包装</span></span><br><span class="line">            isMod: <span class="literal">true</span>,</span><br><span class="line">            <span class="comment">//id是去掉modules和.js后缀中间的部分</span></span><br><span class="line">            id: <span class="string">'$1'</span>,</span><br><span class="line">            release: <span class="string">'$&#123;statics&#125;/$&amp;'</span>,</span><br><span class="line">            url: <span class="string">'/modules/$1'</span></span><br><span class="line">        &#125;, &#123;</span><br><span class="line">            <span class="comment">//组件化的webpart的html</span></span><br><span class="line">            reg: <span class="regexp">/^\/widget\/(.*)\.(html)/i</span>,</span><br><span class="line">            release: <span class="literal">false</span></span><br><span class="line">        &#125;, &#123;</span><br><span class="line">            <span class="comment">//组件化的webpart的css</span></span><br><span class="line">            reg: <span class="regexp">/^\/(widget|site)\/(.*)\.(css|png|jpg)/i</span>,</span><br><span class="line">            release: <span class="string">'$&#123;statics&#125;/$&amp;'</span>,</span><br><span class="line">            useSprite: <span class="literal">true</span>,</span><br><span class="line">            url: <span class="string">'$&amp;'</span></span><br><span class="line">        &#125;, &#123;</span><br><span class="line">            <span class="comment">//其他css文件</span></span><br><span class="line">            reg: <span class="regexp">/^(.*)\.(css|less)$/i</span>,</span><br><span class="line">            release: <span class="string">'$&#123;statics&#125;/$&amp;'</span>,</span><br><span class="line">            url: <span class="string">'$&amp;'</span></span><br><span class="line">        &#125;, &#123;</span><br><span class="line">            <span class="comment">//前端模板</span></span><br><span class="line">            reg: <span class="string">'**.ejs'</span>,</span><br><span class="line">            <span class="comment">//当做类js文件处理，可以识别__inline, __uri等资源定位标识</span></span><br><span class="line">            isJsLike: <span class="literal">true</span>,</span><br><span class="line">            <span class="comment">//只是内嵌，不用发布</span></span><br><span class="line">            release: <span class="literal">false</span></span><br><span class="line">        &#125;, &#123;</span><br><span class="line">            reg: <span class="string">"map.js"</span>,</span><br><span class="line">            release: <span class="string">"$&#123;statics&#125;/"</span></span><br><span class="line">        &#125;, &#123;</span><br><span class="line">            reg: <span class="regexp">/.*\.(html|jsp|tpl|vm|htm|asp|aspx|php)$/</span>,</span><br><span class="line">            useCache: <span class="literal">false</span>,</span><br><span class="line">            release: <span class="string">'$&#123;statics&#125;/$&amp;'</span></span><br><span class="line">        &#125;, &#123;</span><br><span class="line">            reg: <span class="string">"**"</span>,</span><br><span class="line">            release: <span class="string">'$&#123;statics&#125;/$&amp;'</span>,</span><br><span class="line">            url: <span class="string">'$&amp;'</span></span><br><span class="line">        &#125;]</span><br><span class="line">    &#125;,</span><br><span class="line">    settings: &#123;</span><br><span class="line">        postprocessor: &#123;</span><br><span class="line">            jswrapper: &#123;</span><br><span class="line">                type: <span class="string">'amd'</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        lint: &#123;</span><br><span class="line">            jshint: &#123;</span><br><span class="line">                camelcase: <span class="literal">true</span>,</span><br><span class="line">                curly: <span class="literal">true</span>,</span><br><span class="line">                eqeqeq: <span class="literal">true</span>,</span><br><span class="line">                forin: <span class="literal">true</span>,</span><br><span class="line">                immed: <span class="literal">true</span>,</span><br><span class="line">                latedef: <span class="literal">true</span>,</span><br><span class="line">                newcap: <span class="literal">true</span>,</span><br><span class="line">                noarg: <span class="literal">true</span>,</span><br><span class="line">                noempty: <span class="literal">true</span>,</span><br><span class="line">                node: <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">fis.config.merge(&#123;</span><br><span class="line">    roadmap: &#123;</span><br><span class="line">        <span class="comment">//所有静态资源文件都使用 http://s1.example.com 或者 http://s2.example.com 作为域名</span></span><br><span class="line">        domain: <span class="string">'http://static1.example.com, http://s2.example.com'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fis.config.merge(&#123;</span><br><span class="line">    project: &#123;</span><br><span class="line">        exclude: <span class="regexp">/.docx|.bak$|.bat$|.md$|.rar$$|^\/less\/*|.less$|^\/modules\/pizzaui\/pizzaui\/*/i</span></span><br><span class="line">    &#125; <span class="comment">//排除压缩包，文档，和bak文件</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/fis/" rel="tag">#fis</a>
+          
+            <a href="/tags/前端/" rel="tag">#前端</a>
+          
+            <a href="/tags/前端工程化/" rel="tag">#前端工程化</a>
+          
+            <a href="/tags/前端模块化/" rel="tag">#前端模块化</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/07/centos安装源配置/" rel="next" title="centos安装源配置">
+                <i class="fa fa-chevron-left"></i> centos安装源配置
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/01/07/基于fis的前端模块化和工程化方案/"
+     data-title="基于fis的前端模块化和工程化方案"
+     data-content=""
+     data-url="http://zuoyanart.github.io/2016/01/07/基于fis的前端模块化和工程化方案/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/01/07/基于fis的前端模块化和工程化方案/"
+           data-title="基于fis的前端模块化和工程化方案" data-url="http://zuoyanart.github.io/2016/01/07/基于fis的前端模块化和工程化方案/">
+      </div>
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="左盐" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">左盐</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description"></p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/spnt" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://gitcafe.com/spnt" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> gitcafe
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u524D_u7AEF_u6784_u5EFA_u5DE5_u5177"><span class="nav-number">1.</span> <span class="nav-text">前端构建工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5173_u4E8Efis"><span class="nav-number">2.</span> <span class="nav-text">关于fis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fis_u7684_u524D_u7AEF_u5DE5_u7A0B_u5316_u548C_u6A21_u5757_u5316_u57FA_u7840_u63D2_u4EF6"><span class="nav-number">3.</span> <span class="nav-text">fis的前端工程化和模块化基础插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-_u81EA_u52A8_u6253_u5305_u5408_u5E76_u63D2_u4EF6"><span class="nav-number">3.1.</span> <span class="nav-text">1.自动打包合并插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fis_u914D_u7F6E"><span class="nav-number">3.1.1.</span> <span class="nav-text">fis配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#u4F5C_u7528"><span class="nav-number">3.1.2.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#u5E94_u7528_u4E3E_u4F8B_uFF1A"><span class="nav-number">3.1.3.</span> <span class="nav-text">应用举例：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fis_u7684include_u529F_u80FD"><span class="nav-number">3.2.</span> <span class="nav-text">fis的include功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fis_u914D_u7F6E-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">fis配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#u4F5C_u7528-1"><span class="nav-number">3.2.2.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#u5E94_u7528_u4E3E_u4F8B"><span class="nav-number">3.2.3.</span> <span class="nav-text">应用举例</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#u4E3B_u6A21_u677F_u6587_u4EF6"><span class="nav-number">3.2.3.1.</span> <span class="nav-text">主模板文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#u6B21_u6A21_u7248_u6587_u4EF6_uFF08header-small/header-html_uFF09"><span class="nav-number">3.2.3.2.</span> <span class="nav-text">次模版文件（header-small/header.html）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#u8F6C_u6362_u540E"><span class="nav-number">3.2.3.3.</span> <span class="nav-text">转换后</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#u8BF4_u660E"><span class="nav-number">3.2.4.</span> <span class="nav-text">说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u56FE_u7247_u96EA_u78A7"><span class="nav-number">3.3.</span> <span class="nav-text">图片雪碧</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fis_u914D_u7F6E-2"><span class="nav-number">3.3.1.</span> <span class="nav-text">fis配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#u4F5C_u7528-2"><span class="nav-number">3.3.2.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#u5E94_u7528_u4E3E_u4F8B-1"><span class="nav-number">3.3.3.</span> <span class="nav-text">应用举例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ejs_u5206_u6790_u80FD_u529B"><span class="nav-number">3.4.</span> <span class="nav-text">ejs分析能力</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fis_u914D_u7F6E-3"><span class="nav-number">3.4.1.</span> <span class="nav-text">fis配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#u4F5C_u7528-3"><span class="nav-number">3.4.2.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#u5E94_u7528_u4E3E_u4F8B-2"><span class="nav-number">3.4.3.</span> <span class="nav-text">应用举例</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#js_u51FD_u6570"><span class="nav-number">3.4.3.1.</span> <span class="nav-text">js函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ejs_u6A21_u677F"><span class="nav-number">3.4.4.</span> <span class="nav-text">ejs模板</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#u8F93_u51FA"><span class="nav-number">3.4.5.</span> <span class="nav-text">输出</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u76EE_u5F55_u7ED3_u6784"><span class="nav-number">4.</span> <span class="nav-text">目录结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u8BF4_u660E-1"><span class="nav-number">4.1.</span> <span class="nav-text">说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#modules_u76EE_u5F55"><span class="nav-number">4.1.1.</span> <span class="nav-text">modules目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#widget_u76EE_u5F55"><span class="nav-number">4.1.2.</span> <span class="nav-text">widget目录</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4E00_u4E2A_u6A21_u5757_u7684_u4EE3_u7801_u793A_u4F8B"><span class="nav-number">5.</span> <span class="nav-text">一个模块的代码示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#loginstate-html_u4EE3_u7801"><span class="nav-number">5.1.</span> <span class="nav-text">loginstate.html代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#loginstate-js_u4EE3_u7801"><span class="nav-number">5.2.</span> <span class="nav-text">loginstate.js代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#index-html_u4EE3_u7801"><span class="nav-number">5.3.</span> <span class="nav-text">index.html代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u6240_u9700_u63D2_u4EF6"><span class="nav-number">6.</span> <span class="nav-text">所需插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fis-conf-js"><span class="nav-number">7.</span> <span class="nav-text">fis-conf.js</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">左盐</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"spntblog"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+
+    
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>
