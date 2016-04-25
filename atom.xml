@@ -194,8 +194,8 @@
     <link href="http://zuoyanart.github.io/2016/01/07/golang%E7%9A%84centos%E5%AE%89%E8%A3%85/"/>
     <id>http://zuoyanart.github.io/2016/01/07/golang的centos安装/</id>
     <published>2016-01-07T07:59:15.000Z</published>
-    <updated>2016-04-25T09:09:47.214Z</updated>
-    <content type="html"><![CDATA[<h2 id="Lunux_u4E0B_u5B89_u88C5_28_u57FA_u4E8Ecentos_29"><a href="#Lunux_u4E0B_u5B89_u88C5_28_u57FA_u4E8Ecentos_29" class="headerlink" title="Lunux下安装(基于centos)"></a>Lunux下安装(基于centos)</h2><h2 id="u4E0B_u8F7Dgolang"><a href="#u4E0B_u8F7Dgolang" class="headerlink" title="下载golang"></a>下载golang</h2><p>根据自己的系统位数（32位/64位）下载适合自己的版本的golang安装包</p>
+    <updated>2016-04-25T09:14:07.823Z</updated>
+    <content type="html"><![CDATA[<h2 id="Linux_u4E0B_u5B89_u88C5_28_u57FA_u4E8Ecentos_29"><a href="#Linux_u4E0B_u5B89_u88C5_28_u57FA_u4E8Ecentos_29" class="headerlink" title="Linux下安装(基于centos)"></a>Linux下安装(基于centos)</h2><h2 id="u4E0B_u8F7Dgolang"><a href="#u4E0B_u8F7Dgolang" class="headerlink" title="下载golang"></a>下载golang</h2><p>根据自己的系统位数（32位/64位）下载适合自己的版本的golang安装包</p>
 <p>下载地址：<a href="https://golang.org/dl/" target="_blank" rel="external">https://golang.org/dl/</a></p>
 <h2 id="u5B89_u88C5"><a href="#u5B89_u88C5" class="headerlink" title="安装"></a>安装</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf go1<span class="number">.5</span><span class="number">.1</span>.linux-amd64.tar.gz -C /data/soft/golang</span><br><span class="line"><span class="comment">//  /data/soft/golang 为安装位置</span></span><br></pre></td></tr></table></figure>
 <h2 id="u8BBE_u7F6EGOPATH"><a href="#u8BBE_u7F6EGOPATH" class="headerlink" title="设置GOPATH"></a>设置GOPATH</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile</span><br></pre></td></tr></table></figure>
@@ -206,7 +206,7 @@
 <p>则说明安装成功</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h2 id="Lunux_u4E0B_u5B89_u88C5_28_u57FA_u4E8Ecentos_29"><a href="#Lunux_u4E0B_u5B89_u88C5_28_u57FA_u4E8Ecentos_29" class="headerlink" title]]>
+    <![CDATA[<h2 id="Linux_u4E0B_u5B89_u88C5_28_u57FA_u4E8Ecentos_29"><a href="#Linux_u4E0B_u5B89_u88C5_28_u57FA_u4E8Ecentos_29" class="headerlink" title]]>
     </summary>
     
       <category term="centos" scheme="http://zuoyanart.github.io/tags/centos/"/>
