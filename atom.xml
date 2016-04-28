@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://zuoyanart.github.io/"/>
-  <updated>2016-04-28T08:48:12.013Z</updated>
+  <updated>2016-04-28T08:50:47.733Z</updated>
   <id>http://zuoyanart.github.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://zuoyanart.github.io/2016/04/28/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%9B%BE%E7%89%87%E8%87%AA%E5%8A%A8%E9%80%82%E9%85%8D/"/>
     <id>http://zuoyanart.github.io/2016/04/28/移动端图片自动适配/</id>
     <published>2016-04-28T08:24:28.000Z</published>
-    <updated>2016-04-28T08:48:12.013Z</updated>
+    <updated>2016-04-28T08:50:47.733Z</updated>
     <content type="html"><![CDATA[<h2 id="u4ECB_u7ECD"><a href="#u4ECB_u7ECD" class="headerlink" title="介绍"></a>介绍</h2><p>大家知道Retina屏幕可能会用到2倍或者3倍的图片， 其实这个一直没有特别好的解决方案，直到webkit内核支持css4的bgackground-image的新规范草案image-set。添加上-webkit前缀，webkit内核就可以解析该属性。</p>
 <h2 id="u8BED_u6CD5_u4ECB_u7ECD"><a href="#u8BED_u6CD5_u4ECB_u7ECD" class="headerlink" title="语法介绍"></a>语法介绍</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">selector &#123;</span><br><span class="line">  background-image: url(no-image-set.png);</span><br><span class="line">  background: image-set(url(foo-lowres.png) <span class="number">1</span>x,url(foo-highres.png) <span class="number">2</span>x) center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -30,6 +30,7 @@
 
 backgorund-positon只需写一遍，相对位置按照1x图来写即可
 </code></pre><p>建议此处处理结合框架使用，比如我一直使用fis自动雪碧</p>
+<h2 id="u6D4F_u89C8_u5668_u517C_u5BB9_u6027"><a href="#u6D4F_u89C8_u5668_u517C_u5BB9_u6027" class="headerlink" title="浏览器兼容性"></a>浏览器兼容性</h2><p><a href="http://caniuse.com/#search=image-set" title="image-set" target="_blank" rel="external">http://caniuse.com/#search=image-set</a></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="u4ECB_u7ECD"><a href="#u4ECB_u7ECD" class="headerlink" title="介绍"></a>介绍</h2><p>大家知道Retina屏幕可能会用到2倍或者3倍的图片， 其实这个一直没有特别好的解决方案，直到webki]]>
