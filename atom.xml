@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://zuoyanart.github.io/"/>
-  <updated>2016-04-28T08:50:47.733Z</updated>
+  <updated>2016-05-04T07:10:49.815Z</updated>
   <id>http://zuoyanart.github.io/</id>
   
   <author>
@@ -13,6 +13,41 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[翻译nightwatchjs guid]]></title>
+    <link href="http://zuoyanart.github.io/2016/05/04/nightwatch1/"/>
+    <id>http://zuoyanart.github.io/2016/05/04/nightwatch1/</id>
+    <published>2016-05-04T06:32:19.000Z</published>
+    <updated>2016-05-04T07:10:49.815Z</updated>
+    <content type="html"><![CDATA[<h2 id="u7EFC_u8FF0"><a href="#u7EFC_u8FF0" class="headerlink" title="综述"></a>综述</h2><h3 id="u4EC0_u4E48_u662FNightWatch_3F"><a href="#u4EC0_u4E48_u662FNightWatch_3F" class="headerlink" title="什么是NightWatch?"></a>什么是NightWatch?</h3><hr>
+<p>NightWatch.js是一个web应用和web网站的自动化测试框架，使用nodejs编写，并使用第三方<a href="http://code.google.com/p/selenium/wiki/JsonWireProtocol" title="Selenium WebDriver API." target="_blank" rel="external">http://code.google.com/p/selenium/wiki/JsonWireProtocol</a>。</p>
+<p>他是一个完整的浏览器自动化（端到端）解决方案，旨在简化CI的构建和书写自动化测试的过程。</p>
+<h3 id="Selenium_u4ECB_u7ECD"><a href="#Selenium_u4ECB_u7ECD" class="headerlink" title="Selenium介绍"></a>Selenium介绍</h3><hr>
+<p>Selenium 是一个非常受欢迎的浏览器自动化的全面工具集，最初是为java研发的，但是也支持其他大多数的编程语言。</p>
+<p>Selenium主项目包含：</p>
+<ul>
+<li>Selenium IDE</li>
+<li>Selenium Remote Control</li>
+<li>Selenium WebDriver</li>
+<li>Selenium Grid</li>
+</ul>
+<p>NightWatch 使用 Selenium WebDriver，特别是WebDriver Wire Protocol用来执行浏览器自动化相关的任务。</p>
+<p>##现实原理</p>
+<p>NightWatch运行通过发送带有正确参数的HTTP请求到Selenium服务器然后解析响应。restful api协议的定义是通过 Selenium JsonWireProtocol,看下面的演示流程图。<br><img src="/mdimg/operation.png" alt=""></p>
+<p>大部分情况下， NightWatch 需要发送至少两次请求到Selenium 服务去执行命令或断言，第一次请求通过一个css选择器或者xpath表达式来定位元素，然后在获取到的元素上执行命令或断言。</p>
+<h2 id="u5B89_u88C5"><a href="#u5B89_u88C5" class="headerlink" title="安装"></a>安装</h2><h3 id="install_nodejs"><a href="#install_nodejs" class="headerlink" title="install nodejs"></a>install nodejs</h3><hr>
+<p>这步省略，不翻译，网上的教程一大把。</p>
+<h3 id="u5B89_u88C5_nightWatch"><a href="#u5B89_u88C5_nightWatch" class="headerlink" title="安装 nightWatch"></a>安装 nightWatch</h3><hr>
+<p>安装最新的版本通过npm命令，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install nightwatch</span><br></pre></td></tr></table></figure>
+<p>国内用户还是建议使用cnpm<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install nightwatch</span><br></pre></td></tr></table></figure></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="u7EFC_u8FF0"><a href="#u7EFC_u8FF0" class="headerlink" title="综述"></a>综述</h2><h3 id="u4EC0_u4E48_u662FNightWatch_3F"><a href="#u4EC0]]>
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[移动端图片自动适配]]></title>
@@ -762,64 +797,6 @@ backgorund-positon只需写一遍，相对位置按照1x图来写即可
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="mongodb_u67B6_u6784"><a href="#mongodb_u67B6_u6784" class="headerlink" title="mongodb架构"></a>mongodb架构</h2><p>MongoDB的Sharding机制解决了海]]>
-    </summary>
-    
-      <category term="mongodb" scheme="http://zuoyanart.github.io/tags/mongodb/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[mongodb分片维护]]></title>
-    <link href="http://zuoyanart.github.io/2012/07/25/mongodb%E5%88%86%E7%89%87%E7%BB%B4%E6%8A%A4/"/>
-    <id>http://zuoyanart.github.io/2012/07/25/mongodb分片维护/</id>
-    <published>2012-07-25T10:24:03.000Z</published>
-    <updated>2016-01-06T04:29:56.101Z</updated>
-    <content type="html"><![CDATA[<p>Mongodb的Sharding维护也是就那几个命令，相对来说都很简单，结合实例做下演示。</p>
-<ul>
-<li>列出所有的Shard Server</li>
-</ul>
-<p><img src="/mdimg/2012072518181550.png" alt=""></p>
-<p>注意一点是：需要连接到路由的admin下。listshards的参数1是一个固定的默认值，没有特殊的意义。</p>
-<ul>
-<li>查看Sharding的信息</li>
-</ul>
-<p><img src="/mdimg/2012072610260447.png" alt=""></p>
-<p>切换到Friends数据库，使用printShardingStatus(),可以看到当前Sharding的信息。</p>
-<ul>
-<li>对现有的表执行Sharding。</li>
-</ul>
-<p>上面我们对FriendUserAttach表执行了分片，下面我们在对另外一个表FriendUser进行分片。</p>
-<p>1, 首先我们查看下FriendUser的状态</p>
-<p><img src="/mdimg/2012072610323889.png" alt=""></p>
-<p> 第一行 sharded=false，说明该表未被分片。然后我们连接到路由器的admin上执行分片命令</p>
-<p><img src="/mdimg/2012072610353269.png" alt=""></p>
-<p>对数据库Friends的表FriendUser做了分片，片键是_id，我们运行命令查看下状态<br><img src="/mdimg/2012072610384554.png" alt=""></p>
-<p>看以看到已经成功分片。</p>
-<ul>
-<li>新增Shard Server</li>
-</ul>
-<p>新增Shard Server的用处就不在说了，这是大数据下肯定会用到的命令。下面说步骤</p>
-<p>  首先我们在启动一个新的Mongodb ，端口号定为2002。<br><img src="/mdimg/2012072610451996.png" alt=""></p>
-<p>把这个新的进程添加到咱们已经做好的“串”中，注意：这点是要连接到路由的admin中<br><img src="/mdimg/2012072610472857.png" alt=""><br>然后我们看下当前的分片情况<br><img src="/mdimg/2012072610523829.png" alt=""></p>
-<p>可以看到多了一个shard0002的分片。</p>
-<ul>
-<li>移除分片</li>
-</ul>
-<p>移除分片不是立刻实现的，他需要一个把分片上的数据转移到其他分片的过程，当转移完成后该分片才会被正式踢下线。这时候也需要多次调用命令，查看移除操作执行到了那里。</p>
-<p>移除命令是：db.runCommand({“removeshard”:”ip+端口”})，注意是这里需要用admin数据库来执行操作<br><img src="/mdimg/2012072611011137.png" alt=""><br>这里看以清晰的看到状态：</p>
-<blockquote>
-<p>started：移除的动作刚刚开始</p>
-<p>ongoing：移除正在进行</p>
-<p>completed：完成</p>
-</blockquote>
-<p>到最后一个提示”can’t find shard” 说明已经是被踢下线了。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>Mongodb的Sharding维护也是就那几个命令，相对来说都很简单，结合实例做下演示。</p>
-<ul>
-<li>列出所有的Shard Server</li>
-</ul>
-<p><img src="/mdimg/2012072518181550.png" alt="">]]>
     </summary>
     
       <category term="mongodb" scheme="http://zuoyanart.github.io/tags/mongodb/"/>

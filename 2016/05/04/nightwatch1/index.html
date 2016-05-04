@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="noedjs,sqlite,前端," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -53,34 +53,29 @@
 
 
 
-<meta name="description" content="sqlite3的官方文档提到：nodejs和node-webkit的ABI不同，所以默认的安装方式：
-1npm install sqlite3
-安装的sqlite3是无法使用的，需要重新编译。
-编译方法：windows下：配置编译环境：
-
-安装python，据说nodejs的编译建议使用的的版本是2.6+，但不推荐3.0，所以本人也就不去深究了，本人使用的是2.7的版本
-VC++编译器，包含在VS">
+<meta name="description" content="综述什么是NightWatch?
+NightWatch.js是一个web应用和web网站的自动化测试框架，使用nodejs编写，并使用第三方http://code.google.com/p/selenium/wiki/JsonWireProtocol。
+他是一个完整的浏览器自动化（端到端）解决方案，旨在简化CI的构建和书写自动化测试的过程。
+Selenium介绍
+Selenium 是一个非常受欢迎">
 <meta property="og:type" content="article">
-<meta property="og:title" content="node-webkit中使用sqlite3">
-<meta property="og:url" content="http://zuoyanart.github.io/2014/01/22/node-webkit使用sqlite/index.html">
+<meta property="og:title" content="翻译nightwatchjs guid">
+<meta property="og:url" content="http://zuoyanart.github.io/2016/05/04/nightwatch1/index.html">
 <meta property="og:site_name" content="左盐">
-<meta property="og:description" content="sqlite3的官方文档提到：nodejs和node-webkit的ABI不同，所以默认的安装方式：
-1npm install sqlite3
-安装的sqlite3是无法使用的，需要重新编译。
-编译方法：windows下：配置编译环境：
-
-安装python，据说nodejs的编译建议使用的的版本是2.6+，但不推荐3.0，所以本人也就不去深究了，本人使用的是2.7的版本
-VC++编译器，包含在VS">
-<meta property="og:updated_time" content="2016-01-06T04:29:54.133Z">
+<meta property="og:description" content="综述什么是NightWatch?
+NightWatch.js是一个web应用和web网站的自动化测试框架，使用nodejs编写，并使用第三方http://code.google.com/p/selenium/wiki/JsonWireProtocol。
+他是一个完整的浏览器自动化（端到端）解决方案，旨在简化CI的构建和书写自动化测试的过程。
+Selenium介绍
+Selenium 是一个非常受欢迎">
+<meta property="og:image" content="http://zuoyanart.github.io/mdimg/operation.png">
+<meta property="og:updated_time" content="2016-05-04T07:10:49.815Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="node-webkit中使用sqlite3">
-<meta name="twitter:description" content="sqlite3的官方文档提到：nodejs和node-webkit的ABI不同，所以默认的安装方式：
-1npm install sqlite3
-安装的sqlite3是无法使用的，需要重新编译。
-编译方法：windows下：配置编译环境：
-
-安装python，据说nodejs的编译建议使用的的版本是2.6+，但不推荐3.0，所以本人也就不去深究了，本人使用的是2.7的版本
-VC++编译器，包含在VS">
+<meta name="twitter:title" content="翻译nightwatchjs guid">
+<meta name="twitter:description" content="综述什么是NightWatch?
+NightWatch.js是一个web应用和web网站的自动化测试框架，使用nodejs编写，并使用第三方http://code.google.com/p/selenium/wiki/JsonWireProtocol。
+他是一个完整的浏览器自动化（端到端）解决方案，旨在简化CI的构建和书写自动化测试的过程。
+Selenium介绍
+Selenium 是一个非常受欢迎">
 
 
 
@@ -92,7 +87,7 @@ VC++编译器，包含在VS">
   };
 </script>
 
-  <title> node-webkit中使用sqlite3 | 左盐 </title>
+  <title> 翻译nightwatchjs guid | 左盐 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -242,7 +237,7 @@ VC++编译器，包含在VS">
             
             
               
-                node-webkit中使用sqlite3
+                翻译nightwatchjs guid
               
             
           </h1>
@@ -251,8 +246,8 @@ VC++编译器，包含在VS">
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2014-01-22T15:29:14+08:00" content="2014-01-22">
-              2014-01-22
+            <time itemprop="dateCreated" datetime="2016-05-04T14:32:19+08:00" content="2016-05-04">
+              2016-05-04
             </time>
           </span>
 
@@ -262,8 +257,8 @@ VC++编译器，包含在VS">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2014/01/22/node-webkit使用sqlite/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/01/22/node-webkit使用sqlite/" itemprop="commentsCount"></span>
+                <a href="/2016/05/04/nightwatch1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/04/nightwatch1/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -282,54 +277,46 @@ VC++编译器，包含在VS">
       
 
       
-        <span itemprop="articleBody"><p>sqlite3的官方文档提到：nodejs和node-webkit的ABI不同，所以默认的安装方式：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install sqlite3</span><br></pre></td></tr></table></figure>
-<p>安装的sqlite3是无法使用的，需要重新编译。</p>
-<h4 id="u7F16_u8BD1_u65B9_u6CD5_uFF1A"><a href="#u7F16_u8BD1_u65B9_u6CD5_uFF1A" class="headerlink" title="编译方法："></a>编译方法：</h4><h5 id="windows_u4E0B_uFF1A"><a href="#windows_u4E0B_uFF1A" class="headerlink" title="windows下："></a>windows下：</h5><p>配置编译环境：</p>
-<blockquote>
-<p>安装python，据说nodejs的编译建议使用的的版本是2.6+，但不推荐3.0，所以本人也就不去深究了，本人使用的是2.7的版本</p>
-<p>VC++编译器，包含在VS2010中（VC++ 2010 Express亦可）</p>
-<p>安装nw-gyp ，使用命令：npm install nw-gyp -g</p>
-</blockquote>
-<h5 id="u7F16_u8BD1_u6B65_u9AA4"><a href="#u7F16_u8BD1_u6B65_u9AA4" class="headerlink" title="编译步骤"></a>编译步骤</h5><p>1，安装sqlte3，使用命令：npm install sqlite3</p>
-<p>2，在cmd中切换到sqlite3所在的目录，cd ./node_module/sqlite3</p>
-<p>3，输入命令：nw-gyp rebuild –target=0.8.4  (0.8.4为node-webkit的版本号)</p>
-<p>4，把./build/Release/node-sqlite3.node 复制到 ./lib/binding/Release/node-v11-win32-ia32/ 下，如果文件夹不存在请手动创建</p>
-<p>注意：本人在编译的时候遇到Python不是内部命令的错误，设置了path也不行，故本人在编译的时候多加了一个命令：set PATH=%PATH%;C:\Python27，把此语句放在第三部执行即可</p>
-<h5 id="MAC_u7684_u7F16_u8BD1_uFF1A"><a href="#MAC_u7684_u7F16_u8BD1_uFF1A" class="headerlink" title="MAC的编译："></a>MAC的编译：</h5><p>省去 “windows编译中配置编译环境”中的1，2步外，剩下的都一致</p>
-<p>注：真爱生命，远离windows</p>
+        <span itemprop="articleBody"><h2 id="u7EFC_u8FF0"><a href="#u7EFC_u8FF0" class="headerlink" title="综述"></a>综述</h2><h3 id="u4EC0_u4E48_u662FNightWatch_3F"><a href="#u4EC0_u4E48_u662FNightWatch_3F" class="headerlink" title="什么是NightWatch?"></a>什么是NightWatch?</h3><hr>
+<p>NightWatch.js是一个web应用和web网站的自动化测试框架，使用nodejs编写，并使用第三方<a href="http://code.google.com/p/selenium/wiki/JsonWireProtocol" title="Selenium WebDriver API." target="_blank" rel="external">http://code.google.com/p/selenium/wiki/JsonWireProtocol</a>。</p>
+<p>他是一个完整的浏览器自动化（端到端）解决方案，旨在简化CI的构建和书写自动化测试的过程。</p>
+<h3 id="Selenium_u4ECB_u7ECD"><a href="#Selenium_u4ECB_u7ECD" class="headerlink" title="Selenium介绍"></a>Selenium介绍</h3><hr>
+<p>Selenium 是一个非常受欢迎的浏览器自动化的全面工具集，最初是为java研发的，但是也支持其他大多数的编程语言。</p>
+<p>Selenium主项目包含：</p>
+<ul>
+<li>Selenium IDE</li>
+<li>Selenium Remote Control</li>
+<li>Selenium WebDriver</li>
+<li>Selenium Grid</li>
+</ul>
+<p>NightWatch 使用 Selenium WebDriver，特别是WebDriver Wire Protocol用来执行浏览器自动化相关的任务。</p>
+<p>##现实原理</p>
+<p>NightWatch运行通过发送带有正确参数的HTTP请求到Selenium服务器然后解析响应。restful api协议的定义是通过 Selenium JsonWireProtocol,看下面的演示流程图。<br><img src="/mdimg/operation.png" alt=""></p>
+<p>大部分情况下， NightWatch 需要发送至少两次请求到Selenium 服务去执行命令或断言，第一次请求通过一个css选择器或者xpath表达式来定位元素，然后在获取到的元素上执行命令或断言。</p>
+<h2 id="u5B89_u88C5"><a href="#u5B89_u88C5" class="headerlink" title="安装"></a>安装</h2><h3 id="install_nodejs"><a href="#install_nodejs" class="headerlink" title="install nodejs"></a>install nodejs</h3><hr>
+<p>这步省略，不翻译，网上的教程一大把。</p>
+<h3 id="u5B89_u88C5_nightWatch"><a href="#u5B89_u88C5_nightWatch" class="headerlink" title="安装 nightWatch"></a>安装 nightWatch</h3><hr>
+<p>安装最新的版本通过npm命令，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install nightwatch</span><br></pre></td></tr></table></figure>
+<p>国内用户还是建议使用cnpm<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install nightwatch</span><br></pre></td></tr></table></figure></p>
 </span>
       
     </div>
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/noedjs/" rel="tag">#noedjs</a>
-          
-            <a href="/tags/sqlite/" rel="tag">#sqlite</a>
-          
-            <a href="/tags/前端/" rel="tag">#前端</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2013/03/21/多ajax请求的解决方案/" rel="next" title="多ajax请求的各类解决方案（同步, 队列, cancel请求）的令一种解决方案">
-                <i class="fa fa-chevron-left"></i> 多ajax请求的各类解决方案（同步, 队列, cancel请求）的令一种解决方案
+              <a href="/2016/04/28/移动端图片自动适配/" rel="next" title="移动端图片自动适配">
+                <i class="fa fa-chevron-left"></i> 移动端图片自动适配
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/11/18/cookie-safe/" rel="prev" title="cookie的攻击与防御">
-                cookie的攻击与防御 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -344,10 +331,10 @@ VC++编译器，包含在VS">
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2014/01/22/node-webkit使用sqlite/"
-     data-title="node-webkit中使用sqlite3"
+        <div class="ds-share flat" data-thread-key="2016/05/04/nightwatch1/"
+     data-title="翻译nightwatchjs guid"
      data-content=""
-     data-url="http://zuoyanart.github.io/2014/01/22/node-webkit使用sqlite/">
+     data-url="http://zuoyanart.github.io/2016/05/04/nightwatch1/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -375,8 +362,8 @@ VC++编译器，包含在VS">
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2014/01/22/node-webkit使用sqlite/"
-           data-title="node-webkit中使用sqlite3" data-url="http://zuoyanart.github.io/2014/01/22/node-webkit使用sqlite/">
+      <div class="ds-thread" data-thread-key="2016/05/04/nightwatch1/"
+           data-title="翻译nightwatchjs guid" data-url="http://zuoyanart.github.io/2016/05/04/nightwatch1/">
       </div>
     
   </div>
@@ -483,7 +470,7 @@ VC++编译器，包含在VS">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#u7F16_u8BD1_u65B9_u6CD5_uFF1A"><span class="nav-number">1.</span> <span class="nav-text">编译方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#windows_u4E0B_uFF1A"><span class="nav-number">1.1.</span> <span class="nav-text">windows下：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#u7F16_u8BD1_u6B65_u9AA4"><span class="nav-number">1.2.</span> <span class="nav-text">编译步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MAC_u7684_u7F16_u8BD1_uFF1A"><span class="nav-number">1.3.</span> <span class="nav-text">MAC的编译：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u7EFC_u8FF0"><span class="nav-number">1.</span> <span class="nav-text">综述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u4EC0_u4E48_u662FNightWatch_3F"><span class="nav-number">1.1.</span> <span class="nav-text">什么是NightWatch?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Selenium_u4ECB_u7ECD"><span class="nav-number">1.2.</span> <span class="nav-text">Selenium介绍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5B89_u88C5"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#install_nodejs"><span class="nav-number">2.1.</span> <span class="nav-text">install nodejs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u5B89_u88C5_nightWatch"><span class="nav-number">2.2.</span> <span class="nav-text">安装 nightWatch</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
