@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="noedjs,sqlite,前端," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -53,34 +53,22 @@
 
 
 
-<meta name="description" content="sqlite3的官方文档提到：nodejs和node-webkit的ABI不同，所以默认的安装方式：
-1npm install sqlite3
-安装的sqlite3是无法使用的，需要重新编译。
-编译方法：windows下：配置编译环境：
-
-安装python，据说nodejs的编译建议使用的的版本是2.6+，但不推荐3.0，所以本人也就不去深究了，本人使用的是2.7的版本
-VC++编译器，包含在VS">
+<meta name="description" content="概述在编写linux shell命令完成一些自动化的事情的时候，少不了关于流程的控制和条件判断，这里简单介绍几种简单的控制命令。
+双and （&amp;amp;&amp;amp;）``jscd ../ &amp;amp;&amp;amp; mocha12345`&amp;amp;&amp;amp;` 命令表示，第二条命令只有在第一条命令执行成功后执行。## 双竖线（||）``jscd ../ || mocha
+|| 命令表示，第二条命令只有在第">
 <meta property="og:type" content="article">
-<meta property="og:title" content="node-webkit中使用sqlite3">
-<meta property="og:url" content="http://zuoyanart.github.io/2014/01/22/node-webkit使用sqlite/index.html">
+<meta property="og:title" content="shell命令之流程控制">
+<meta property="og:url" content="http://zuoyanart.github.io/2016/05/06/shell命令之流程控制/index.html">
 <meta property="og:site_name" content="左盐">
-<meta property="og:description" content="sqlite3的官方文档提到：nodejs和node-webkit的ABI不同，所以默认的安装方式：
-1npm install sqlite3
-安装的sqlite3是无法使用的，需要重新编译。
-编译方法：windows下：配置编译环境：
-
-安装python，据说nodejs的编译建议使用的的版本是2.6+，但不推荐3.0，所以本人也就不去深究了，本人使用的是2.7的版本
-VC++编译器，包含在VS">
-<meta property="og:updated_time" content="2016-01-06T04:29:54.133Z">
+<meta property="og:description" content="概述在编写linux shell命令完成一些自动化的事情的时候，少不了关于流程的控制和条件判断，这里简单介绍几种简单的控制命令。
+双and （&amp;amp;&amp;amp;）``jscd ../ &amp;amp;&amp;amp; mocha12345`&amp;amp;&amp;amp;` 命令表示，第二条命令只有在第一条命令执行成功后执行。## 双竖线（||）``jscd ../ || mocha
+|| 命令表示，第二条命令只有在第">
+<meta property="og:updated_time" content="2016-05-06T09:16:45.361Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="node-webkit中使用sqlite3">
-<meta name="twitter:description" content="sqlite3的官方文档提到：nodejs和node-webkit的ABI不同，所以默认的安装方式：
-1npm install sqlite3
-安装的sqlite3是无法使用的，需要重新编译。
-编译方法：windows下：配置编译环境：
-
-安装python，据说nodejs的编译建议使用的的版本是2.6+，但不推荐3.0，所以本人也就不去深究了，本人使用的是2.7的版本
-VC++编译器，包含在VS">
+<meta name="twitter:title" content="shell命令之流程控制">
+<meta name="twitter:description" content="概述在编写linux shell命令完成一些自动化的事情的时候，少不了关于流程的控制和条件判断，这里简单介绍几种简单的控制命令。
+双and （&amp;amp;&amp;amp;）``jscd ../ &amp;amp;&amp;amp; mocha12345`&amp;amp;&amp;amp;` 命令表示，第二条命令只有在第一条命令执行成功后执行。## 双竖线（||）``jscd ../ || mocha
+|| 命令表示，第二条命令只有在第">
 
 
 
@@ -92,7 +80,7 @@ VC++编译器，包含在VS">
   };
 </script>
 
-  <title> node-webkit中使用sqlite3 | 左盐 </title>
+  <title> shell命令之流程控制 | 左盐 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -242,7 +230,7 @@ VC++编译器，包含在VS">
             
             
               
-                node-webkit中使用sqlite3
+                shell命令之流程控制
               
             
           </h1>
@@ -251,8 +239,8 @@ VC++编译器，包含在VS">
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2014-01-22T15:29:14+08:00" content="2014-01-22">
-              2014-01-22
+            <time itemprop="dateCreated" datetime="2016-05-06T17:07:00+08:00" content="2016-05-06">
+              2016-05-06
             </time>
           </span>
 
@@ -262,8 +250,8 @@ VC++编译器，包含在VS">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2014/01/22/node-webkit使用sqlite/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/01/22/node-webkit使用sqlite/" itemprop="commentsCount"></span>
+                <a href="/2016/05/06/shell命令之流程控制/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/06/shell命令之流程控制/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -282,54 +270,35 @@ VC++编译器，包含在VS">
       
 
       
-        <span itemprop="articleBody"><p>sqlite3的官方文档提到：nodejs和node-webkit的ABI不同，所以默认的安装方式：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install sqlite3</span><br></pre></td></tr></table></figure>
-<p>安装的sqlite3是无法使用的，需要重新编译。</p>
-<h4 id="u7F16_u8BD1_u65B9_u6CD5_uFF1A"><a href="#u7F16_u8BD1_u65B9_u6CD5_uFF1A" class="headerlink" title="编译方法："></a>编译方法：</h4><h5 id="windows_u4E0B_uFF1A"><a href="#windows_u4E0B_uFF1A" class="headerlink" title="windows下："></a>windows下：</h5><p>配置编译环境：</p>
-<blockquote>
-<p>安装python，据说nodejs的编译建议使用的的版本是2.6+，但不推荐3.0，所以本人也就不去深究了，本人使用的是2.7的版本</p>
-<p>VC++编译器，包含在VS2010中（VC++ 2010 Express亦可）</p>
-<p>安装nw-gyp ，使用命令：npm install nw-gyp -g</p>
-</blockquote>
-<h5 id="u7F16_u8BD1_u6B65_u9AA4"><a href="#u7F16_u8BD1_u6B65_u9AA4" class="headerlink" title="编译步骤"></a>编译步骤</h5><p>1，安装sqlte3，使用命令：npm install sqlite3</p>
-<p>2，在cmd中切换到sqlite3所在的目录，cd ./node_module/sqlite3</p>
-<p>3，输入命令：nw-gyp rebuild –target=0.8.4  (0.8.4为node-webkit的版本号)</p>
-<p>4，把./build/Release/node-sqlite3.node 复制到 ./lib/binding/Release/node-v11-win32-ia32/ 下，如果文件夹不存在请手动创建</p>
-<p>注意：本人在编译的时候遇到Python不是内部命令的错误，设置了path也不行，故本人在编译的时候多加了一个命令：set PATH=%PATH%;C:\Python27，把此语句放在第三部执行即可</p>
-<h5 id="MAC_u7684_u7F16_u8BD1_uFF1A"><a href="#MAC_u7684_u7F16_u8BD1_uFF1A" class="headerlink" title="MAC的编译："></a>MAC的编译：</h5><p>省去 “windows编译中配置编译环境”中的1，2步外，剩下的都一致</p>
-<p>注：真爱生命，远离windows</p>
-</span>
+        <span itemprop="articleBody"><h2 id="u6982_u8FF0"><a href="#u6982_u8FF0" class="headerlink" title="概述"></a>概述</h2><p>在编写linux shell命令完成一些自动化的事情的时候，少不了关于流程的控制和条件判断，这里简单介绍几种简单的控制命令。</p>
+<h2 id="u53CCand__uFF08_26amp_3B_26amp_3B_uFF09"><a href="#u53CCand__uFF08_26amp_3B_26amp_3B_uFF09" class="headerlink" title="双and （&amp;&amp;）"></a>双and （&amp;&amp;）</h2><p>``js<br>cd ../ &amp;&amp; mocha<br><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="escape">`&amp;</span>&amp;<span class="escape">` </span>命令表示，第二条命令只有在第一条命令执行成功后执行。</span><br><span class="line"></span><br><span class="line">## 双竖线（||）</span><br><span class="line"><span class="escape">``</span>js</span><br><span class="line">cd ../ || mocha</span><br></pre></td></tr></table></figure></p>
+<p><code>||</code> 命令表示，第二条命令只有在第一条命令执行不成功时执行。</p>
+<h2 id="u5206_u53F7_uFF08_3B_uFF09"><a href="#u5206_u53F7_uFF08_3B_uFF09" class="headerlink" title="分号（;）"></a>分号（;）</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /tmp/t2 /tmp/t2.bak; echo <span class="string">"hello world"</span></span><br></pre></td></tr></table></figure>
+<p>顺序执行多条命令，当;号前的命令执行完（不管是否执行成功），才执行;后的命令。</p>
+<h2 id="sleep_u3001"><a href="#sleep_u3001" class="headerlink" title="sleep、"></a>sleep、</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sleep <span class="number">20</span>s</span><br></pre></td></tr></table></figure>
+<p>进程休眠一段时间，然后再进行</p>
+<h2 id="u5355and__uFF08_26amp_3B_uFF09"><a href="#u5355and__uFF08_26amp_3B_uFF09" class="headerlink" title="单and （&amp;）"></a>单and （&amp;）</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm start &amp; cd ../</span><br></pre></td></tr></table></figure>
+<p>与<code>;</code> 类似，但不代表第一个命令执行结束</p>
+<h2 id="u8F93_u5165_u4E2D_u7AEF"><a href="#u8F93_u5165_u4E2D_u7AEF" class="headerlink" title="输入中端"></a>输入中端</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo -e <span class="string">'\003'</span></span><br></pre></td></tr></table></figure>
+<p>模拟输出<code>Ctrl+C</code></p>
+<h2 id="u6F14_u793A_u793A_u4F8B"><a href="#u6F14_u793A_u793A_u4F8B" class="headerlink" title="演示示例"></a>演示示例</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#步骤：</span><br><span class="line"># 检查mocha是否已经安装，没有安装则安装mocha</span><br><span class="line"># git clone项目所有源文件</span><br><span class="line"># 切换到项目目录，安装pkg</span><br><span class="line"># 进入到静态文件目录里，fis3构建静态文件</span><br><span class="line"># 切换到项目根目录，启动端口监听</span><br><span class="line"># 端口监听20s,然后模拟输出Ctrl+c,主要是确保bable编译完成</span><br><span class="line"># 运行mocha单元测试</span><br><span class="line">npm ls mocha || npm install mocha -g  &amp;&amp; git clone https://github.com/zuoyanart/pizzaManage &amp;&amp; cd pizzaManage &amp;&amp; cnpm install &amp;&amp; cd fis-static &amp;&amp; fis3 release -d ../ &amp;&amp; cd ../ &amp;&amp; npm start &amp; sleep 20s;echo -e '\003';cd app;mocha;</span><br></pre></td></tr></table></figure></span>
       
     </div>
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/noedjs/" rel="tag">#noedjs</a>
-          
-            <a href="/tags/sqlite/" rel="tag">#sqlite</a>
-          
-            <a href="/tags/前端/" rel="tag">#前端</a>
-          
-        </div>
       
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2013/03/21/多ajax请求的解决方案/" rel="next" title="多ajax请求的各类解决方案（同步, 队列, cancel请求）的令一种解决方案">
-                <i class="fa fa-chevron-left"></i> 多ajax请求的各类解决方案（同步, 队列, cancel请求）的令一种解决方案
+              <a href="/2016/05/04/nightwatch1/" rel="next" title="翻译nightwatchjs guid">
+                <i class="fa fa-chevron-left"></i> 翻译nightwatchjs guid
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/11/18/cookie-safe/" rel="prev" title="cookie的攻击与防御">
-                cookie的攻击与防御 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -344,10 +313,10 @@ VC++编译器，包含在VS">
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2014/01/22/node-webkit使用sqlite/"
-     data-title="node-webkit中使用sqlite3"
+        <div class="ds-share flat" data-thread-key="2016/05/06/shell命令之流程控制/"
+     data-title="shell命令之流程控制"
      data-content=""
-     data-url="http://zuoyanart.github.io/2014/01/22/node-webkit使用sqlite/">
+     data-url="http://zuoyanart.github.io/2016/05/06/shell命令之流程控制/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -375,8 +344,8 @@ VC++编译器，包含在VS">
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2014/01/22/node-webkit使用sqlite/"
-           data-title="node-webkit中使用sqlite3" data-url="http://zuoyanart.github.io/2014/01/22/node-webkit使用sqlite/">
+      <div class="ds-thread" data-thread-key="2016/05/06/shell命令之流程控制/"
+           data-title="shell命令之流程控制" data-url="http://zuoyanart.github.io/2016/05/06/shell命令之流程控制/">
       </div>
     
   </div>
@@ -483,7 +452,7 @@ VC++编译器，包含在VS">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#u7F16_u8BD1_u65B9_u6CD5_uFF1A"><span class="nav-number">1.</span> <span class="nav-text">编译方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#windows_u4E0B_uFF1A"><span class="nav-number">1.1.</span> <span class="nav-text">windows下：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#u7F16_u8BD1_u6B65_u9AA4"><span class="nav-number">1.2.</span> <span class="nav-text">编译步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MAC_u7684_u7F16_u8BD1_uFF1A"><span class="nav-number">1.3.</span> <span class="nav-text">MAC的编译：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u6982_u8FF0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u53CCand__uFF08_26amp_3B_26amp_3B_uFF09"><span class="nav-number">2.</span> <span class="nav-text">双and （&&）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5206_u53F7_uFF08_3B_uFF09"><span class="nav-number">3.</span> <span class="nav-text">分号（;）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sleep_u3001"><span class="nav-number">4.</span> <span class="nav-text">sleep、</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5355and__uFF08_26amp_3B_uFF09"><span class="nav-number">5.</span> <span class="nav-text">单and （&）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u8F93_u5165_u4E2D_u7AEF"><span class="nav-number">6.</span> <span class="nav-text">输入中端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u6F14_u793A_u793A_u4F8B"><span class="nav-number">7.</span> <span class="nav-text">演示示例</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
