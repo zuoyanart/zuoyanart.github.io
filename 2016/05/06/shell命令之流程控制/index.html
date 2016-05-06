@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="mongodb," />
+  <meta name="keywords" content="linux,shell," />
 
 
 
@@ -53,43 +53,28 @@
 
 
 
-<meta name="description" content="mongodb架构MongoDB的Sharding机制解决了海量存储和动态扩容的问题，但离生产环境的高可靠，高可用还有距离，Sharding在单点出现故障时就无能为力了。但是MongoDB的副本集却可以很轻松的处理单点故障，所以就有了Replica Sets + Sharding的高可用，高安全的架构。
-架构如下：
-
-shard服务器：使用Replica Sets确保每个数据节点都具有备份、自动容">
+<meta name="description" content="概述在编写linux shell命令完成一些自动化的事情的时候，少不了关于流程的控制和条件判断，这里简单介绍几种简单的控制命令。
+双and （&amp;amp;&amp;amp;）1cd ../ &amp;amp;&amp;amp; mocha
+&amp;amp;&amp;amp; 命令表示，第二条命令只有在第一条命令执行成功后执行。
+双竖线（||）1cd ../ || mocha
+|| 命令表示，第二条命令只有在第一条命令执行不成功时执行。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mongodb的Replica Sets + Sharding架构">
-<meta property="og:url" content="http://zuoyanart.github.io/2012/07/26/mongodb架构/index.html">
+<meta property="og:title" content="shell命令之流程控制">
+<meta property="og:url" content="http://zuoyanart.github.io/2016/05/06/shell命令之流程控制/index.html">
 <meta property="og:site_name" content="左盐">
-<meta property="og:description" content="mongodb架构MongoDB的Sharding机制解决了海量存储和动态扩容的问题，但离生产环境的高可靠，高可用还有距离，Sharding在单点出现故障时就无能为力了。但是MongoDB的副本集却可以很轻松的处理单点故障，所以就有了Replica Sets + Sharding的高可用，高安全的架构。
-架构如下：
-
-shard服务器：使用Replica Sets确保每个数据节点都具有备份、自动容">
-<meta property="og:image" content="http://zuoyanart.github.io/mdimg/2012072614350112.png">
-<meta property="og:image" content="http://zuoyanart.github.io/mdimg/20151227115923.jpg">
-<meta property="og:image" content="http://zuoyanart.github.io/mdimg/2012072615122638.png">
-<meta property="og:image" content="http://zuoyanart.github.io/mdimg/2012072615164159.png">
-<meta property="og:image" content="http://zuoyanart.github.io/mdimg/2012072615190850.png">
-<meta property="og:image" content="http://zuoyanart.github.io/mdimg/2012072615290637.png">
-<meta property="og:image" content="http://zuoyanart.github.io/mdimg/2012072615333241.png">
-<meta property="og:image" content="http://zuoyanart.github.io/mdimg/2012072615360275.png">
-<meta property="og:image" content="http://zuoyanart.github.io/mdimg/2012072615380266.png">
-<meta property="og:image" content="http://zuoyanart.github.io/mdimg/2012072615460864.png">
-<meta property="og:image" content="http://zuoyanart.github.io/mdimg/2012072615533235.png">
-<meta property="og:image" content="http://zuoyanart.github.io/mdimg/2012072615551333.png">
-<meta property="og:image" content="http://zuoyanart.github.io/mdimg/2012072615575385.png">
-<meta property="og:image" content="http://zuoyanart.github.io/mdimg/2012072616023815.png">
-<meta property="og:image" content="http://zuoyanart.github.io/mdimg/2012072616110056.png">
-<meta property="og:image" content="http://zuoyanart.github.io/mdimg/2012072616241385.png">
-<meta property="og:image" content="http://zuoyanart.github.io/mdimg/2012072616334012.png">
-<meta property="og:image" content="http://zuoyanart.github.io/mdimg/2012072616584113.png">
-<meta property="og:updated_time" content="2016-01-06T04:29:55.227Z">
+<meta property="og:description" content="概述在编写linux shell命令完成一些自动化的事情的时候，少不了关于流程的控制和条件判断，这里简单介绍几种简单的控制命令。
+双and （&amp;amp;&amp;amp;）1cd ../ &amp;amp;&amp;amp; mocha
+&amp;amp;&amp;amp; 命令表示，第二条命令只有在第一条命令执行成功后执行。
+双竖线（||）1cd ../ || mocha
+|| 命令表示，第二条命令只有在第一条命令执行不成功时执行。">
+<meta property="og:updated_time" content="2016-05-06T09:23:41.704Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mongodb的Replica Sets + Sharding架构">
-<meta name="twitter:description" content="mongodb架构MongoDB的Sharding机制解决了海量存储和动态扩容的问题，但离生产环境的高可靠，高可用还有距离，Sharding在单点出现故障时就无能为力了。但是MongoDB的副本集却可以很轻松的处理单点故障，所以就有了Replica Sets + Sharding的高可用，高安全的架构。
-架构如下：
-
-shard服务器：使用Replica Sets确保每个数据节点都具有备份、自动容">
+<meta name="twitter:title" content="shell命令之流程控制">
+<meta name="twitter:description" content="概述在编写linux shell命令完成一些自动化的事情的时候，少不了关于流程的控制和条件判断，这里简单介绍几种简单的控制命令。
+双and （&amp;amp;&amp;amp;）1cd ../ &amp;amp;&amp;amp; mocha
+&amp;amp;&amp;amp; 命令表示，第二条命令只有在第一条命令执行成功后执行。
+双竖线（||）1cd ../ || mocha
+|| 命令表示，第二条命令只有在第一条命令执行不成功时执行。">
 
 
 
@@ -101,7 +86,7 @@ shard服务器：使用Replica Sets确保每个数据节点都具有备份、自
   };
 </script>
 
-  <title> Mongodb的Replica Sets + Sharding架构 | 左盐 </title>
+  <title> shell命令之流程控制 | 左盐 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -251,7 +236,7 @@ shard服务器：使用Replica Sets确保每个数据节点都具有备份、自
             
             
               
-                Mongodb的Replica Sets + Sharding架构
+                shell命令之流程控制
               
             
           </h1>
@@ -260,8 +245,8 @@ shard服务器：使用Replica Sets确保每个数据节点都具有备份、自
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2012-07-26T14:56:16+08:00" content="2012-07-26">
-              2012-07-26
+            <time itemprop="dateCreated" datetime="2016-05-06T17:07:00+08:00" content="2016-05-06">
+              2016-05-06
             </time>
           </span>
 
@@ -271,8 +256,8 @@ shard服务器：使用Replica Sets确保每个数据节点都具有备份、自
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2012/07/26/mongodb架构/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/07/26/mongodb架构/" itemprop="commentsCount"></span>
+                <a href="/2016/05/06/shell命令之流程控制/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/06/shell命令之流程控制/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -291,40 +276,20 @@ shard服务器：使用Replica Sets确保每个数据节点都具有备份、自
       
 
       
-        <span itemprop="articleBody"><h2 id="mongodb_u67B6_u6784"><a href="#mongodb_u67B6_u6784" class="headerlink" title="mongodb架构"></a>mongodb架构</h2><p>MongoDB的Sharding机制解决了海量存储和动态扩容的问题，但离生产环境的高可靠，高可用还有距离，Sharding在单点出现故障时就无能为力了。但是MongoDB的副本集却可以很轻松的处理单点故障，所以就有了Replica Sets + Sharding的高可用，高安全的架构。</p>
-<p>架构如下：</p>
-<ol>
-<li><p>shard服务器：使用Replica Sets确保每个数据节点都具有备份、自动容错转移、自动恢复的能力。</p>
-</li>
-<li><p>配置服务器：使用使用3个配置服务器确保元数据完整性</p>
-</li>
-<li><p>路由进程：使用3个路由进程实现平衡，提高客户端接入性能，架构如下</p>
-</li>
-</ol>
-<p><img src="/mdimg/2012072614350112.png" alt=""><br>3个分片进程：shard11，shard12，shard13组成一个副本集，提供Sharding中shard1的功能。</p>
-<p>3个分片进程：shard21，shard22，shard23组成一个副本集，提供Sharding中shard2的功能。</p>
-<p>3个配置服务器进程和3个路由器进程</p>
-<h2 id="u5F00_u59CB_u67B6_u6784"><a href="#u5F00_u59CB_u67B6_u6784" class="headerlink" title="开始架构"></a>开始架构</h2><p>现在我们开始搭建整个架构(因为没那么多机器，我还是用本地的目录来模拟机器)。</p>
-<p><img src="/mdimg/20151227115923.jpg" alt=""></p>
-<p>1，启动Shard1进程并配置Replica Sets</p>
-<p> 启动mongod shard11进程，副本集名称：shard1<br><img src="/mdimg/2012072615122638.png" alt=""></p>
-<p>启动mongod shard12进程，并设置副本集：shard1<br><img src="/mdimg/2012072615164159.png" alt=""><br>启动mongod shard13进程，并设置副本集：shard1<br><img src="/mdimg/2012072615190850.png" alt=""><br> 把这三个进程配置成副本集，新开一个cmd,用来执行各种非启动命令，连接到上面三个进程中的任何一个，把他们配置成副本集，操作如下<br><img src="/mdimg/2012072615290637.png" alt=""><br>2，启动Shard2进程并配置Replica Sets</p>
-<p>启动mongod shard21进程，副本集名称：shard2<br><img src="/mdimg/2012072615333241.png" alt=""><br>启动mongod shard22进程，并设置副本集：shard2<br><img src="/mdimg/2012072615360275.png" alt=""><br>启动mongod shard23进程，并设置副本集：shard2<br><img src="/mdimg/2012072615380266.png" alt=""><br>把这三个进程配置成副本集，操作如下<br><img src="/mdimg/2012072615460864.png" alt=""></p>
-<p>到此两个副本集够成的分片已经配置完成，下面配置Config server和Route process</p>
-<p>3，配置3个Config Server<br><img src="/mdimg/2012072615533235.png" alt=""><br><img src="/mdimg/2012072615551333.png" alt=""><br><img src="/mdimg/2012072615575385.png" alt=""><br>4，配置Route Process<br><img src="/mdimg/2012072616023815.png" alt=""><br>chunk大小为1M，方便我们测试效果。</p>
-<p>5，配置分片的表和片键<br><img src="/mdimg/2012072616110056.png" alt=""><br>我用的还是Friends库中的FriendUser表来做分片，片键是_id,因为cmd宽度太小了添加分片的命令显示不完全，我手动把他们列出来</p>
-<p>   添加分片<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">db.runCommand(&#123;addshard:<span class="string">"shard1/127.0.0.1:10000,127.0.0.1:10001,127.0.0.1:10002"</span>&#125;)</span><br><span class="line"></span><br><span class="line">db.runCommand(&#123;addshard:<span class="string">"shard2/127.0.0.1:20000,127.0.0.1:20001,127.0.0.1:20002"</span>&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>到此整个构架已经配置完成了，我们来验证下配置的情况，我通过客户端添加10000条数据到数据库中<br><img src="/mdimg/2012072616241385.png" alt=""></p>
-<p>可以看到分片已经执行。</p>
-<h2 id="u5BB9_u707E_u6D4B_u8BD5"><a href="#u5BB9_u707E_u6D4B_u8BD5" class="headerlink" title="容灾测试"></a>容灾测试</h2><p>现在做下容灾的测试，我停掉shard11，看看结果会如何。</p>
-<p>打开shard11的 cmd窗口，Ctrl+C停止进程</p>
-<p>查看下状态</p>
-<p><img src="/mdimg/2012072616334012.png" alt=""></p>
-<p>状态完好，我在插入20000条数据，看看效果<br><img src="/mdimg/2012072616584113.png" alt=""></p>
-<p>可以看到依然可以运行。</p>
-<p>这里会出现这种情况：当有三台机器做副本集的时候，只能是一太服务器当掉，当有两台当掉的时候，第三台不能由从库变为主库。</p>
-<p>这里应该注意副本集的选举规则： 当主库当掉时，次节点将触发选举。 收到副本集大多数成员投票的第一个节点将成为主节点。副本集选举最重要的功能是副本集的大多数原始成员节点必须参与选举才能成功。如果您的副本集包含三个 成员，有两个或三个节点可以相互连接时该副本集可选出一个主节点。如果该副本集中有两个节点脱机，则剩余的一个节点仍将作为次节点。</p>
-</span>
+        <span itemprop="articleBody"><h2 id="u6982_u8FF0"><a href="#u6982_u8FF0" class="headerlink" title="概述"></a>概述</h2><p>在编写linux shell命令完成一些自动化的事情的时候，少不了关于流程的控制和条件判断，这里简单介绍几种简单的控制命令。</p>
+<h2 id="u53CCand__uFF08_26amp_3B_26amp_3B_uFF09"><a href="#u53CCand__uFF08_26amp_3B_26amp_3B_uFF09" class="headerlink" title="双and （&amp;&amp;）"></a>双and （&amp;&amp;）</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ../ &amp;&amp; mocha</span><br></pre></td></tr></table></figure>
+<p><code>&amp;&amp;</code> 命令表示，第二条命令只有在第一条命令执行成功后执行。</p>
+<h2 id="u53CC_u7AD6_u7EBF_uFF08_7C_7C_uFF09"><a href="#u53CC_u7AD6_u7EBF_uFF08_7C_7C_uFF09" class="headerlink" title="双竖线（||）"></a>双竖线（||）</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ../ || mocha</span><br></pre></td></tr></table></figure>
+<p><code>||</code> 命令表示，第二条命令只有在第一条命令执行不成功时执行。</p>
+<h2 id="u5206_u53F7_uFF08_3B_uFF09"><a href="#u5206_u53F7_uFF08_3B_uFF09" class="headerlink" title="分号（;）"></a>分号（;）</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /tmp/t2 /tmp/t2.bak; echo <span class="string">"hello world"</span></span><br></pre></td></tr></table></figure>
+<p>顺序执行多条命令，当;号前的命令执行完（不管是否执行成功），才执行;后的命令。</p>
+<h2 id="sleep_u3001"><a href="#sleep_u3001" class="headerlink" title="sleep、"></a>sleep、</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sleep <span class="number">20</span>s</span><br></pre></td></tr></table></figure>
+<p>进程休眠一段时间，然后再进行</p>
+<h2 id="u5355and__uFF08_26amp_3B_uFF09"><a href="#u5355and__uFF08_26amp_3B_uFF09" class="headerlink" title="单and （&amp;）"></a>单and （&amp;）</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm start &amp; cd ../</span><br></pre></td></tr></table></figure>
+<p>与<code>;</code> 类似，但不代表第一个命令执行结束</p>
+<h2 id="u8F93_u5165_u4E2D_u7AEF"><a href="#u8F93_u5165_u4E2D_u7AEF" class="headerlink" title="输入中端"></a>输入中端</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo -e <span class="string">'\003'</span></span><br></pre></td></tr></table></figure>
+<p>模拟输出<code>Ctrl+C</code></p>
+<h2 id="u6F14_u793A_u793A_u4F8B"><a href="#u6F14_u793A_u793A_u4F8B" class="headerlink" title="演示示例"></a>演示示例</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#步骤：</span><br><span class="line"># 检查mocha是否已经安装，没有安装则安装mocha</span><br><span class="line"># git clone项目所有源文件</span><br><span class="line"># 切换到项目目录，安装pkg</span><br><span class="line"># 进入到静态文件目录里，fis3构建静态文件</span><br><span class="line"># 切换到项目根目录，启动端口监听</span><br><span class="line"># 端口监听20s,然后模拟输出Ctrl+c,主要是确保bable编译完成</span><br><span class="line"># 运行mocha单元测试</span><br><span class="line">npm ls mocha || npm install mocha -g  &amp;&amp; git clone https://github.com/zuoyanart/pizzaManage &amp;&amp; cd pizzaManage &amp;&amp; cnpm install &amp;&amp; cd fis-static &amp;&amp; fis3 release -d ../ &amp;&amp; cd ../ &amp;&amp; npm start &amp; sleep 20s;echo -e '\003';cd app;mocha;</span><br></pre></td></tr></table></figure></span>
       
     </div>
 
@@ -332,7 +297,9 @@ shard服务器：使用Replica Sets确保每个数据节点都具有备份、自
       
         <div class="post-tags">
           
-            <a href="/tags/mongodb/" rel="tag">#mongodb</a>
+            <a href="/tags/linux/" rel="tag">#linux</a>
+          
+            <a href="/tags/shell/" rel="tag">#shell</a>
           
         </div>
       
@@ -341,17 +308,13 @@ shard服务器：使用Replica Sets确保每个数据节点都具有备份、自
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2012/07/25/mongodb分片维护/" rel="next" title="mongodb分片维护">
-                <i class="fa fa-chevron-left"></i> mongodb分片维护
+              <a href="/2016/05/04/nightwatch1/" rel="next" title="翻译nightwatchjs guid">
+                <i class="fa fa-chevron-left"></i> 翻译nightwatchjs guid
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2012/07/27/mongodb分片片键的选择/" rel="prev" title="mongodb分片片键的选择">
-                mongodb分片片键的选择 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -366,10 +329,10 @@ shard服务器：使用Replica Sets确保每个数据节点都具有备份、自
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2012/07/26/mongodb架构/"
-     data-title="Mongodb的Replica Sets + Sharding架构"
+        <div class="ds-share flat" data-thread-key="2016/05/06/shell命令之流程控制/"
+     data-title="shell命令之流程控制"
      data-content=""
-     data-url="http://zuoyanart.github.io/2012/07/26/mongodb架构/">
+     data-url="http://zuoyanart.github.io/2016/05/06/shell命令之流程控制/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -397,8 +360,8 @@ shard服务器：使用Replica Sets确保每个数据节点都具有备份、自
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2012/07/26/mongodb架构/"
-           data-title="Mongodb的Replica Sets + Sharding架构" data-url="http://zuoyanart.github.io/2012/07/26/mongodb架构/">
+      <div class="ds-thread" data-thread-key="2016/05/06/shell命令之流程控制/"
+           data-title="shell命令之流程控制" data-url="http://zuoyanart.github.io/2016/05/06/shell命令之流程控制/">
       </div>
     
   </div>
@@ -505,7 +468,7 @@ shard服务器：使用Replica Sets确保每个数据节点都具有备份、自
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#mongodb_u67B6_u6784"><span class="nav-number">1.</span> <span class="nav-text">mongodb架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5F00_u59CB_u67B6_u6784"><span class="nav-number">2.</span> <span class="nav-text">开始架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5BB9_u707E_u6D4B_u8BD5"><span class="nav-number">3.</span> <span class="nav-text">容灾测试</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u6982_u8FF0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u53CCand__uFF08_26amp_3B_26amp_3B_uFF09"><span class="nav-number">2.</span> <span class="nav-text">双and （&&）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u53CC_u7AD6_u7EBF_uFF08_7C_7C_uFF09"><span class="nav-number">3.</span> <span class="nav-text">双竖线（||）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5206_u53F7_uFF08_3B_uFF09"><span class="nav-number">4.</span> <span class="nav-text">分号（;）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sleep_u3001"><span class="nav-number">5.</span> <span class="nav-text">sleep、</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5355and__uFF08_26amp_3B_uFF09"><span class="nav-number">6.</span> <span class="nav-text">单and （&）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u8F93_u5165_u4E2D_u7AEF"><span class="nav-number">7.</span> <span class="nav-text">输入中端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u6F14_u793A_u793A_u4F8B"><span class="nav-number">8.</span> <span class="nav-text">演示示例</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
