@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://zuoyanart.github.io/"/>
-  <updated>2016-05-06T09:18:54.063Z</updated>
+  <updated>2016-05-06T09:20:11.433Z</updated>
   <id>http://zuoyanart.github.io/</id>
   
   <author>
@@ -19,11 +19,13 @@
     <link href="http://zuoyanart.github.io/2016/05/06/shell%E5%91%BD%E4%BB%A4%E4%B9%8B%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/"/>
     <id>http://zuoyanart.github.io/2016/05/06/shell命令之流程控制/</id>
     <published>2016-05-06T09:07:00.000Z</published>
-    <updated>2016-05-06T09:18:54.063Z</updated>
+    <updated>2016-05-06T09:20:11.433Z</updated>
     <content type="html"><![CDATA[<h2 id="u6982_u8FF0"><a href="#u6982_u8FF0" class="headerlink" title="概述"></a>概述</h2><p>在编写linux shell命令完成一些自动化的事情的时候，少不了关于流程的控制和条件判断，这里简单介绍几种简单的控制命令。</p>
 <h2 id="u53CCand__uFF08_26amp_3B_26amp_3B_uFF09"><a href="#u53CCand__uFF08_26amp_3B_26amp_3B_uFF09" class="headerlink" title="双and （&amp;&amp;）"></a>双and （&amp;&amp;）</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ../ &amp;&amp; mocha</span><br></pre></td></tr></table></figure>
 <p><code>&amp;&amp;</code> 命令表示，第二条命令只有在第一条命令执行成功后执行。</p>
-<h2 id="u53CC_u7AD6_u7EBF_uFF08_7C_7C_uFF09"><a href="#u53CC_u7AD6_u7EBF_uFF08_7C_7C_uFF09" class="headerlink" title="双竖线（||）"></a>双竖线（||）</h2><p>``js<br>cd ../ || mocha<br><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="escape">`|</span>|<span class="escape">` </span>命令表示，第二条命令只有在第一条命令执行不成功时执行。</span><br><span class="line"></span><br><span class="line">## 分号（<span class="comment">;）</span></span><br><span class="line"></span><br><span class="line"><span class="escape">``</span><span class="escape">`j</span>s</span><br><span class="line">cp /tmp/t2 /tmp/t2.bak<span class="comment">; echo "hello world"</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="u53CC_u7AD6_u7EBF_uFF08_7C_7C_uFF09"><a href="#u53CC_u7AD6_u7EBF_uFF08_7C_7C_uFF09" class="headerlink" title="双竖线（||）"></a>双竖线（||）</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ../ || mocha</span><br></pre></td></tr></table></figure>
+<p><code>||</code> 命令表示，第二条命令只有在第一条命令执行不成功时执行。</p>
+<h2 id="u5206_u53F7_uFF08_3B_uFF09"><a href="#u5206_u53F7_uFF08_3B_uFF09" class="headerlink" title="分号（;）"></a>分号（;）</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /tmp/t2 /tmp/t2.bak; echo <span class="string">"hello world"</span></span><br></pre></td></tr></table></figure>
 <p>顺序执行多条命令，当;号前的命令执行完（不管是否执行成功），才执行;后的命令。</p>
 <h2 id="sleep_u3001"><a href="#sleep_u3001" class="headerlink" title="sleep、"></a>sleep、</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sleep <span class="number">20</span>s</span><br></pre></td></tr></table></figure>
 <p>进程休眠一段时间，然后再进行</p>
