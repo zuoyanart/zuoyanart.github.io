@@ -49,7 +49,7 @@
     <link href="http://zuoyanart.github.io/2016/05/04/nightwatch1/"/>
     <id>http://zuoyanart.github.io/2016/05/04/nightwatch1/</id>
     <published>2016-05-04T06:32:19.000Z</published>
-    <updated>2016-05-05T02:03:49.619Z</updated>
+    <updated>2016-05-06T09:26:51.458Z</updated>
     <content type="html"><![CDATA[<h2 id="u7EFC_u8FF0"><a href="#u7EFC_u8FF0" class="headerlink" title="综述"></a>综述</h2><h3 id="u4EC0_u4E48_u662FNightWatch_3F"><a href="#u4EC0_u4E48_u662FNightWatch_3F" class="headerlink" title="什么是NightWatch?"></a>什么是NightWatch?</h3><hr>
 <p>NightWatch.js是一个web应用和web网站的自动化测试框架，使用nodejs编写，并使用第三方<a href="http://code.google.com/p/selenium/wiki/JsonWireProtocol" title="Selenium WebDriver API." target="_blank" rel="external">http://code.google.com/p/selenium/wiki/JsonWireProtocol</a>。</p>
 <p>他是一个完整的浏览器自动化（端到端）解决方案，旨在简化CI的构建和书写自动化测试的过程。</p>
@@ -184,6 +184,8 @@ You can create a separate environment per browser (by chaining desiredCapabiliti
     <summary type="html">
     <![CDATA[<h2 id="u7EFC_u8FF0"><a href="#u7EFC_u8FF0" class="headerlink" title="综述"></a>综述</h2><h3 id="u4EC0_u4E48_u662FNightWatch_3F"><a href="#u4EC0]]>
     </summary>
+    
+      <category term="集成测试，验收测试，自动化测试" scheme="http://zuoyanart.github.io/tags/%E9%9B%86%E6%88%90%E6%B5%8B%E8%AF%95%EF%BC%8C%E9%AA%8C%E6%94%B6%E6%B5%8B%E8%AF%95%EF%BC%8C%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
