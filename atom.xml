@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://zuoyanart.github.io/"/>
-  <updated>2016-05-16T03:13:03.235Z</updated>
+  <updated>2016-05-16T03:15:49.788Z</updated>
   <id>http://zuoyanart.github.io/</id>
   
   <author>
@@ -19,14 +19,14 @@
     <link href="http://zuoyanart.github.io/2016/05/16/composer%E4%BB%8B%E7%BB%8D%E4%B8%8E%E4%BD%BF%E7%94%A8/"/>
     <id>http://zuoyanart.github.io/2016/05/16/composer介绍与使用/</id>
     <published>2016-05-16T02:57:40.000Z</published>
-    <updated>2016-05-16T03:13:03.235Z</updated>
+    <updated>2016-05-16T03:15:49.788Z</updated>
     <content type="html"><![CDATA[<h2 id="composer_u7B80_u4ECB"><a href="#composer_u7B80_u4ECB" class="headerlink" title="composer简介"></a>composer简介</h2><p>用过nodejs的人都知道nodejs有一个包管理工具叫npm，使用npm可以轻松的管理依赖的库文件以及其版本，composer类似，他是php的包管理工具</p>
 <h2 id="u8981_u6C42"><a href="#u8981_u6C42" class="headerlink" title="要求"></a>要求</h2><blockquote>
 <p>php 5.3.2+</p>
 </blockquote>
-<h2 id="windows__u5B89_u88C5"><a href="#windows__u5B89_u88C5" class="headerlink" title="windows 安装"></a>windows 安装</h2><p>下载<br><a href="https://getcomposer.org/Composer-Setup.exe" title=" Composer-Setup.exe" target="_blank" rel="external">https://getcomposer.org/Composer-Setup.exe</a>， 然后安装，然后就可以全局使用composer命令了</p>
+<h2 id="windows__u5B89_u88C5"><a href="#windows__u5B89_u88C5" class="headerlink" title="windows 安装"></a>windows 安装</h2><p>下载<br><a href="https://getcomposer.org/Composer-Setup.exe" title=" Composer-Setup.exe" target="_blank" rel="external">https://getcomposer.org/Composer-Setup.exe</a>， 然后安装，就可以全局使用composer命令了</p>
 <h2 id="u4F7F_u7528"><a href="#u4F7F_u7528" class="headerlink" title="使用"></a>使用</h2><h3 id="u521B_u5EFAcomposer-json_u6587_u4EF6"><a href="#u521B_u5EFAcomposer-json_u6587_u4EF6" class="headerlink" title="创建composer.json文件"></a>创建composer.json文件</h3><p>composer.json文件包含了依赖的基本配置。详情访问：<a href="http://docs.phpcomposer.com/01-basic-usage.html" target="_blank" rel="external">http://docs.phpcomposer.com/01-basic-usage.html</a></p>
-<h2 id="u8BBE_u7F6E_u56FD_u5185_u955C_u50CF1"><a href="#u8BBE_u7F6E_u56FD_u5185_u955C_u50CF1" class="headerlink" title="设置国内镜像1"></a>设置国内镜像1</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer config -g repo.packagist composer https:<span class="comment">//packagist.phpcomposer.com</span></span><br></pre></td></tr></table></figure>]]></content>
+<h2 id="u8BBE_u7F6E_u56FD_u5185_u955C_u50CF"><a href="#u8BBE_u7F6E_u56FD_u5185_u955C_u50CF" class="headerlink" title="设置国内镜像"></a>设置国内镜像</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer config -g repo.packagist composer https:<span class="comment">//packagist.phpcomposer.com</span></span><br></pre></td></tr></table></figure>]]></content>
     <summary type="html">
     <![CDATA[<h2 id="composer_u7B80_u4ECB"><a href="#composer_u7B80_u4ECB" class="headerlink" title="composer简介"></a>composer简介</h2><p>用过nodejs的人都知道nodej]]>
     </summary>
