@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="mongodb," />
+  <meta name="keywords" content="composer,php," />
 
 
 
@@ -53,22 +53,31 @@
 
 
 
-<meta name="description" content="这个问题在做数据结构的时候经常用到，刚开始没怎么留意，因为我的数组都只是单元素文档：只有一个ObjectId，这样用pull操作完全没有问题，但后来用对象作为了数据的内容，就是数组内嵌的对象，这时候用pull就是各种不生效。发现Mongodb对数组内对象的get和pull使用的书写格式不一致。下面我列出可以使用的书写方式：
-先列出mongodb的数据结构
-12345&amp;#123;  &quot;_id&quot; :">
+<meta name="description" content="composer简介用过nodejs的人都知道nodejs有一个包管理工具叫npm，使用npm可以轻松的管理依赖的库文件以及其版本，composer类似，他是php的包管理工具
+要求
+php 5.3.2+
+
+windows 安装下载https://getcomposer.org/Composer-Setup.exe， 然后安装，然后就可以全局使用composer命令了
+使用创建composer.j">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mongodb内嵌对象删除">
-<meta property="og:url" content="http://zuoyanart.github.io/2013/02/25/mongodb内嵌对象删除/index.html">
+<meta property="og:title" content="composer介绍与使用">
+<meta property="og:url" content="http://zuoyanart.github.io/2016/05/16/composer介绍与使用/index.html">
 <meta property="og:site_name" content="左盐">
-<meta property="og:description" content="这个问题在做数据结构的时候经常用到，刚开始没怎么留意，因为我的数组都只是单元素文档：只有一个ObjectId，这样用pull操作完全没有问题，但后来用对象作为了数据的内容，就是数组内嵌的对象，这时候用pull就是各种不生效。发现Mongodb对数组内对象的get和pull使用的书写格式不一致。下面我列出可以使用的书写方式：
-先列出mongodb的数据结构
-12345&amp;#123;  &quot;_id&quot; :">
-<meta property="og:updated_time" content="2016-01-06T04:29:54.673Z">
+<meta property="og:description" content="composer简介用过nodejs的人都知道nodejs有一个包管理工具叫npm，使用npm可以轻松的管理依赖的库文件以及其版本，composer类似，他是php的包管理工具
+要求
+php 5.3.2+
+
+windows 安装下载https://getcomposer.org/Composer-Setup.exe， 然后安装，然后就可以全局使用composer命令了
+使用创建composer.j">
+<meta property="og:updated_time" content="2016-05-16T03:13:03.235Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mongodb内嵌对象删除">
-<meta name="twitter:description" content="这个问题在做数据结构的时候经常用到，刚开始没怎么留意，因为我的数组都只是单元素文档：只有一个ObjectId，这样用pull操作完全没有问题，但后来用对象作为了数据的内容，就是数组内嵌的对象，这时候用pull就是各种不生效。发现Mongodb对数组内对象的get和pull使用的书写格式不一致。下面我列出可以使用的书写方式：
-先列出mongodb的数据结构
-12345&amp;#123;  &quot;_id&quot; :">
+<meta name="twitter:title" content="composer介绍与使用">
+<meta name="twitter:description" content="composer简介用过nodejs的人都知道nodejs有一个包管理工具叫npm，使用npm可以轻松的管理依赖的库文件以及其版本，composer类似，他是php的包管理工具
+要求
+php 5.3.2+
+
+windows 安装下载https://getcomposer.org/Composer-Setup.exe， 然后安装，然后就可以全局使用composer命令了
+使用创建composer.j">
 
 
 
@@ -80,7 +89,7 @@
   };
 </script>
 
-  <title> mongodb内嵌对象删除 | 左盐 </title>
+  <title> composer介绍与使用 | 左盐 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -230,7 +239,7 @@
             
             
               
-                mongodb内嵌对象删除
+                composer介绍与使用
               
             
           </h1>
@@ -239,8 +248,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2013-02-25T15:09:08+08:00" content="2013-02-25">
-              2013-02-25
+            <time itemprop="dateCreated" datetime="2016-05-16T10:57:40+08:00" content="2016-05-16">
+              2016-05-16
             </time>
           </span>
 
@@ -250,8 +259,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2013/02/25/mongodb内嵌对象删除/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/02/25/mongodb内嵌对象删除/" itemprop="commentsCount"></span>
+                <a href="/2016/05/16/composer介绍与使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/16/composer介绍与使用/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -270,13 +279,13 @@
       
 
       
-        <span itemprop="articleBody"><p>这个问题在做数据结构的时候经常用到，刚开始没怎么留意，因为我的数组都只是单元素文档：只有一个ObjectId，这样用pull操作完全没有问题，但后来用对象作为了数据的内容，就是数组内嵌的对象，这时候用pull就是各种不生效。发现Mongodb对数组内对象的get和pull使用的书写格式不一致。下面我列出可以使用的书写方式：</p>
-<p>先列出mongodb的数据结构</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"_id"</span> : ObjectId,</span><br><span class="line">  <span class="string">"Uid"</span> : ObjectId,</span><br><span class="line">  <span class="string">"Visit"</span> : Visit[<span class="number">16</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其中Visit为对象：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">///访客id</span></span><br><span class="line">ObjectId  VId;</span><br><span class="line"><span class="comment">///访问时间</span></span><br><span class="line">DateTime Time;</span><br><span class="line">则删除数组内某个Vid的写法为(我的客户端是：samus)：</span><br><span class="line"></span><br><span class="line">MongoDbHelper.Update&lt;FriendTopicVisit&gt;(<span class="string">"FriendTopicVisit"</span>, <span class="keyword">new</span> Document(<span class="string">"$pull"</span>, <span class="keyword">new</span> Document(<span class="string">"Visit"</span>,<span class="keyword">new</span> Document(<span class="string">"Vid"</span>,visit.Vid))), <span class="keyword">new</span> Document(<span class="string">"_id"</span>, id));</span><br></pre></td></tr></table></figure>
-<p>方法不复杂，但不知道方法再去找方法也确实挺费时间的。</p>
-</span>
+        <span itemprop="articleBody"><h2 id="composer_u7B80_u4ECB"><a href="#composer_u7B80_u4ECB" class="headerlink" title="composer简介"></a>composer简介</h2><p>用过nodejs的人都知道nodejs有一个包管理工具叫npm，使用npm可以轻松的管理依赖的库文件以及其版本，composer类似，他是php的包管理工具</p>
+<h2 id="u8981_u6C42"><a href="#u8981_u6C42" class="headerlink" title="要求"></a>要求</h2><blockquote>
+<p>php 5.3.2+</p>
+</blockquote>
+<h2 id="windows__u5B89_u88C5"><a href="#windows__u5B89_u88C5" class="headerlink" title="windows 安装"></a>windows 安装</h2><p>下载<br><a href="https://getcomposer.org/Composer-Setup.exe" title=" Composer-Setup.exe" target="_blank" rel="external">https://getcomposer.org/Composer-Setup.exe</a>， 然后安装，然后就可以全局使用composer命令了</p>
+<h2 id="u4F7F_u7528"><a href="#u4F7F_u7528" class="headerlink" title="使用"></a>使用</h2><h3 id="u521B_u5EFAcomposer-json_u6587_u4EF6"><a href="#u521B_u5EFAcomposer-json_u6587_u4EF6" class="headerlink" title="创建composer.json文件"></a>创建composer.json文件</h3><p>composer.json文件包含了依赖的基本配置。详情访问：<a href="http://docs.phpcomposer.com/01-basic-usage.html" target="_blank" rel="external">http://docs.phpcomposer.com/01-basic-usage.html</a></p>
+<h2 id="u8BBE_u7F6E_u56FD_u5185_u955C_u50CF1"><a href="#u8BBE_u7F6E_u56FD_u5185_u955C_u50CF1" class="headerlink" title="设置国内镜像1"></a>设置国内镜像1</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer config -g repo.packagist composer https:<span class="comment">//packagist.phpcomposer.com</span></span><br></pre></td></tr></table></figure></span>
       
     </div>
 
@@ -284,7 +293,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/mongodb/" rel="tag">#mongodb</a>
+            <a href="/tags/composer/" rel="tag">#composer</a>
+          
+            <a href="/tags/php/" rel="tag">#php</a>
           
         </div>
       
@@ -293,17 +304,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2012/07/27/mongodb分片片键的选择/" rel="next" title="mongodb分片片键的选择">
-                <i class="fa fa-chevron-left"></i> mongodb分片片键的选择
+              <a href="/2016/05/06/shell命令之流程控制/" rel="next" title="shell命令之流程控制">
+                <i class="fa fa-chevron-left"></i> shell命令之流程控制
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2013/03/21/多ajax请求的解决方案/" rel="prev" title="多ajax请求的各类解决方案（同步, 队列, cancel请求）的令一种解决方案">
-                多ajax请求的各类解决方案（同步, 队列, cancel请求）的令一种解决方案 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -318,10 +325,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2013/02/25/mongodb内嵌对象删除/"
-     data-title="mongodb内嵌对象删除"
+        <div class="ds-share flat" data-thread-key="2016/05/16/composer介绍与使用/"
+     data-title="composer介绍与使用"
      data-content=""
-     data-url="http://zuoyanart.github.io/2013/02/25/mongodb内嵌对象删除/">
+     data-url="http://zuoyanart.github.io/2016/05/16/composer介绍与使用/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -349,8 +356,8 @@
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2013/02/25/mongodb内嵌对象删除/"
-           data-title="mongodb内嵌对象删除" data-url="http://zuoyanart.github.io/2013/02/25/mongodb内嵌对象删除/">
+      <div class="ds-thread" data-thread-key="2016/05/16/composer介绍与使用/"
+           data-title="composer介绍与使用" data-url="http://zuoyanart.github.io/2016/05/16/composer介绍与使用/">
       </div>
     
   </div>
@@ -457,7 +464,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#composer_u7B80_u4ECB"><span class="nav-number">1.</span> <span class="nav-text">composer简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u8981_u6C42"><span class="nav-number">2.</span> <span class="nav-text">要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#windows__u5B89_u88C5"><span class="nav-number">3.</span> <span class="nav-text">windows 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4F7F_u7528"><span class="nav-number">4.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u521B_u5EFAcomposer-json_u6587_u4EF6"><span class="nav-number">4.1.</span> <span class="nav-text">创建composer.json文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u8BBE_u7F6E_u56FD_u5185_u955C_u50CF1"><span class="nav-number">5.</span> <span class="nav-text">设置国内镜像1</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

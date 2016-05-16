@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://zuoyanart.github.io/"/>
-  <updated>2016-05-06T09:24:23.221Z</updated>
+  <updated>2016-05-16T03:13:03.235Z</updated>
   <id>http://zuoyanart.github.io/</id>
   
   <author>
@@ -13,6 +13,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[composer介绍与使用]]></title>
+    <link href="http://zuoyanart.github.io/2016/05/16/composer%E4%BB%8B%E7%BB%8D%E4%B8%8E%E4%BD%BF%E7%94%A8/"/>
+    <id>http://zuoyanart.github.io/2016/05/16/composer介绍与使用/</id>
+    <published>2016-05-16T02:57:40.000Z</published>
+    <updated>2016-05-16T03:13:03.235Z</updated>
+    <content type="html"><![CDATA[<h2 id="composer_u7B80_u4ECB"><a href="#composer_u7B80_u4ECB" class="headerlink" title="composer简介"></a>composer简介</h2><p>用过nodejs的人都知道nodejs有一个包管理工具叫npm，使用npm可以轻松的管理依赖的库文件以及其版本，composer类似，他是php的包管理工具</p>
+<h2 id="u8981_u6C42"><a href="#u8981_u6C42" class="headerlink" title="要求"></a>要求</h2><blockquote>
+<p>php 5.3.2+</p>
+</blockquote>
+<h2 id="windows__u5B89_u88C5"><a href="#windows__u5B89_u88C5" class="headerlink" title="windows 安装"></a>windows 安装</h2><p>下载<br><a href="https://getcomposer.org/Composer-Setup.exe" title=" Composer-Setup.exe" target="_blank" rel="external">https://getcomposer.org/Composer-Setup.exe</a>， 然后安装，然后就可以全局使用composer命令了</p>
+<h2 id="u4F7F_u7528"><a href="#u4F7F_u7528" class="headerlink" title="使用"></a>使用</h2><h3 id="u521B_u5EFAcomposer-json_u6587_u4EF6"><a href="#u521B_u5EFAcomposer-json_u6587_u4EF6" class="headerlink" title="创建composer.json文件"></a>创建composer.json文件</h3><p>composer.json文件包含了依赖的基本配置。详情访问：<a href="http://docs.phpcomposer.com/01-basic-usage.html" target="_blank" rel="external">http://docs.phpcomposer.com/01-basic-usage.html</a></p>
+<h2 id="u8BBE_u7F6E_u56FD_u5185_u955C_u50CF1"><a href="#u8BBE_u7F6E_u56FD_u5185_u955C_u50CF1" class="headerlink" title="设置国内镜像1"></a>设置国内镜像1</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer config -g repo.packagist composer https:<span class="comment">//packagist.phpcomposer.com</span></span><br></pre></td></tr></table></figure>]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="composer_u7B80_u4ECB"><a href="#composer_u7B80_u4ECB" class="headerlink" title="composer简介"></a>composer简介</h2><p>用过nodejs的人都知道nodej]]>
+    </summary>
+    
+      <category term="composer" scheme="http://zuoyanart.github.io/tags/composer/"/>
+    
+      <category term="php" scheme="http://zuoyanart.github.io/tags/php/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[shell命令之流程控制]]></title>
@@ -835,60 +858,6 @@ backgorund-positon只需写一遍，相对位置按照1x图来写即可
 ]]></content>
     <summary type="html">
     <![CDATA[<p>这个问题在做数据结构的时候经常用到，刚开始没怎么留意，因为我的数组都只是单元素文档：只有一个ObjectId，这样用pull操作完全没有问题，但后来用对象作为了数据的内容，就是数组内嵌的对象，这时候用pull就是各种不生效。发现Mongodb对数组内对象的get和pull使]]>
-    </summary>
-    
-      <category term="mongodb" scheme="http://zuoyanart.github.io/tags/mongodb/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[mongodb分片片键的选择]]></title>
-    <link href="http://zuoyanart.github.io/2012/07/27/mongodb%E5%88%86%E7%89%87%E7%89%87%E9%94%AE%E7%9A%84%E9%80%89%E6%8B%A9/"/>
-    <id>http://zuoyanart.github.io/2012/07/27/mongodb分片片键的选择/</id>
-    <published>2012-07-27T04:04:22.000Z</published>
-    <updated>2016-01-06T04:29:56.165Z</updated>
-    <content type="html"><![CDATA[<p>当MongoDB整个架构已经部署好以后，真正考验架构者能力的时候就到了：该如何选择片键。</p>
-<p>如果选择了一个不恰当的片键，他可能会在访问量变大的时候，使你的整个应用系统崩溃，同样好的片键可以构成一个良性的生态系统，根据需要增删服务器，MongoDB会确保系统一直正确的运行下去。</p>
-<h3 id="u54B1_u4EEC_u5148_u770B_u770B_u51E0_u79CD_u4E0D_u6070_u5F53_u7684_u7247_u952E"><a href="#u54B1_u4EEC_u5148_u770B_u770B_u51E0_u79CD_u4E0D_u6070_u5F53_u7684_u7247_u952E" class="headerlink" title="咱们先看看几种不恰当的片键"></a>咱们先看看几种不恰当的片键</h3><p>1，小基数片键</p>
-<p>   假设我们有一个存储用户信息的应用程序，每个文档有一个continent的字段，存储用户所在地区，其值有：africa,antarctica,asia,australia,europe,north america,south america。考虑到我们在每个州都有一个数据中心，并且想从人们所在地的数据中心为其提供数据，我们决定按该字段分片。</p>
-<p>   集合开始于某个数据中心的一个分片的初始块(-∞，∞)，所有的插入和读取都落在这一块上，一旦他变得足够大，就会被分成两个块(-∞,europe)和[europe,∞),这样一来，所有来自africa,antarctica,asia和australia的文档都会被分到第一块，其他的都会被分到第二块，随着更多的文档被添加到数据库，集合最终会变成7个块，如下</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">(-∞,antarctica)</span><br><span class="line"></span><br><span class="line">[anrarctica,asia)</span><br><span class="line"></span><br><span class="line">[asia,australia)</span><br><span class="line"></span><br><span class="line">[australia,europe)</span><br><span class="line"></span><br><span class="line">[europe,north america)</span><br><span class="line"></span><br><span class="line">[north america,south america)</span><br><span class="line"></span><br><span class="line">[south america,∞)</span><br></pre></td></tr></table></figure>
-<p>然后呢？</p>
-<p>MongoDB不能再进一步分割这些块了，快会越来越大，虽然暂时不会出问题，但是当服务器硬盘空间被用完的时候，你就没办法了，只能购买新的硬盘，悲剧的是硬盘是有极限的。</p>
-<p>由于片键数量有限，因此这种片键称为小基数片键，如果选择了一个基数很小的片键，到头来肯定会得到一堆巨大无法移动也不能分割的块，这时候做维护做扩展是什么感觉，你懂得。</p>
-<p>如果是因为需要在某个字段上做大量查询而采用小基数片键，那就需要使用组合片键了，一个片键包含两个字段，并确保第二个字段有非常多不同的值供MongoDB用来进行分割，比如大部分的查询都和时间关联，可以用时间字段做第二个字段，又可以减轻负载。</p>
-<p>2，升序片键</p>
-<p>从RAM中读取数据要比磁盘取快，所以目标是尽可能多的访问内存中的数据。一次，如果有些数据总是被一起访问，我们就希望能够把他们保持在一起。对大部分应用来说，新数据被访问的次数总比老的多，所以往往会使用如时间戳或者objectId一类的字段来分片，但是这并不想我们期望的那样可行。</p>
-<p>比如我们有一个类似微博的服务，其中每个文档都包含一条消息，发送人和发送时间，我们按时间来分片，让我们看看MongoDB会如何运行</p>
-<p>首先还是一个大块(-∞,∞),文档会全部插入到这个分片上，然后开始分裂，比如(-∞,1294516901),[1294516901,-∞)—-(使用的是时间戳),由于是从片键中点把块分开，所以在分割开快的那一刻开始，说有数据都会插入到第二个块上，不会在插入带第一个块上，一旦块二被插满，他会在分割成两块，但同样的只会在最后一块插入数据，这种情况会一直持续下去，这就造成了一个单一且不可分散的热点。在网站高峰期可见这个点上的压力。</p>
-<p>3，随机片键</p>
-<p>有时为了避免热点，会采用一个取值随机的字段来做分片，采用这种片键一开始还不错，但是随着数据量越来越大，他会越来越慢。</p>
-<p>比如我们在分片集合中存储照片缩略图，每个文档包含了照片的二进制数据，二进制数据的md5散列值，以及描述等字段，我们决定在md5散列值上做分片。</p>
-<p>随着集合的增长，我们最终会得到一组均匀分布于各分片的数据块。目前一起正常。现在假设我们非常忙而分片2上的一个块填满并分裂了，配置服务器注意到分片2比分片1多出了10个块并判定应该抹平分片间的差距，这样MongoDB就需要随机加载5个块的数据到内存中并发给片1，考虑到数据序列的随机性，一般情况下这些数据可能不会出现在内存中，所以此时的MongoDB会给RAM带来更大的压力，而且还会引发大量的磁盘IO。</p>
-<p>另外，片键上必须有索引，因此如果选择了从不依据索引查询的随机键，基本上可以说浪费了一个索引，另一方面索引的增加会降低写操作的速度，所以降低索引量也是非常必要的。</p>
-<h3 id="u90A3_u4E48_u600E_u4E48_u6837_u7684_u7247_u952E_u624D_u662F_u597D_u7684_u7247_u952E_u5462_uFF1F"><a href="#u90A3_u4E48_u600E_u4E48_u6837_u7684_u7247_u952E_u624D_u662F_u597D_u7684_u7247_u952E_u5462_uFF1F" class="headerlink" title="那么怎么样的片键才是好的片键呢？"></a>那么怎么样的片键才是好的片键呢？</h3><p>从上面的分析可得出一个好的片键应该具备良好的数据局部性，但又不会因为太局部而导致热点出现。</p>
-<p>1，准升序键加搜索键</p>
-<p>许多应用程序都是访问新数据更频繁，所以我们希望数据大致按时间排序，但是同时也要均匀分布，这样一来既能把我们正在读写的数据保持在内存中，又可以均衡的分散在集群中。</p>
-<p>我们可以通过像{coarselyAscending:1,search:1}这样的组合片键来实现，其中coarselyAscending的每个值最好能对应几十到几百个数据块，而search则应当是应用程序通常都会一句其进行查询的字段。</p>
-<p>举个例子：有个分析程序，用户定期通过他访问过去一个月的数据，而我们希望能尽量保持数据易于使用，因此可以使用{month:1,user:1}来做分片，现在来说说运行过程</p>
-<ul>
-<li>首先一个大数据块((-∞，-∞),(∞，∞))，当他被填满，MongoDB将自动分割成两块，比如：</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">((-∞，-∞),(<span class="string">"2012-07"</span>,<span class="string">"susan"</span>))</span><br><span class="line"></span><br><span class="line">[(<span class="string">"2012-07"</span>,<span class="string">"susan"</span>),(∞,∞))</span><br></pre></td></tr></table></figure>
-<p>假设现在还是7月，则所有写操作会被均匀的分布到两个块上。所有用户名小于susan的数据被写入块1中，所有大于susan的数据被写入块2，然后整个生态系统就良性运行了，等到8月，MongoDB又开始创建2012-08的块，分布还是均衡的(这里不是时时均衡，肯定有个抹平的过程)，等到9月，7月的数据无人访问就开始退出内存，不再占用资源。</p>
-<hr>
-<p>当然场景不同，应用就不同，上面也只是基本的东西，具体选择片键还应该根据自己的程序来做，选键的时候多考虑以下问题。</p>
-<p>   1，写操作是怎么样的，有多大？</p>
-<p>   2，系统没小时会写多少数据，每天呢，高峰期呢</p>
-<p>   3，那些字段是随机的，那些是增长的</p>
-<p>   4，读操作是怎么样的，用户在访问那些数据</p>
-<p>   5，数据索引做了吗？应不应该索引呢？</p>
-<p>  6，数据总量有多少</p>
-<p> 总的来说，在进行分片前，你需要清楚的了解你的数据。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>当MongoDB整个架构已经部署好以后，真正考验架构者能力的时候就到了：该如何选择片键。</p>
-<p>如果选择了一个不恰当的片键，他可能会在访问量变大的时候，使你的整个应用系统崩溃，同样好的片键可以构成一个良性的生态系统，根据需要增删服务器，MongoDB会确保系统一直正]]>
     </summary>
     
       <category term="mongodb" scheme="http://zuoyanart.github.io/tags/mongodb/"/>
